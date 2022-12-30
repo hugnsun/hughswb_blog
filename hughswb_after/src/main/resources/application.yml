@@ -10,9 +10,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.34.3.207:3306/blog?serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    username: root
-    password: hugh@SWB_1998
+    url: jdbc:mysql://你的Ip:3306/blog?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username:账号
+    password: 密码
     hikari:
       minimum-idle: 5
       # 空闲连接存活最大时间，默认600000（10分钟）
@@ -30,15 +30,15 @@ spring:
       connection-test-query: SELECT 1
   # redis配置
   redis:
-    host: 101.34.3.207
+    host: 你的Ip
     port: 6379
-    password: admin
+    password: 
   # mq配置
   rabbitmq:
-    host: 101.34.3.207
+    host: 你的Ip
     port: 5672
-    username: guest
-    password: guest
+    username: 
+    password: 
     listener:
       simple:
         retry:
@@ -48,12 +48,12 @@ spring:
   # es配置 若搜索模式为mysql可删除
   elasticsearch:
     rest:
-      uris: 101.34.3.207:9200
+      uris: 你的Ip:9200
   # 邮箱配置
   mail:
     host: smtp.qq.com
-    username: 2496760580@qq.com
-    password: sjjapypqxzahdjha
+    username: 
+    password: 
     default-encoding: UTF-8
     port: 587
     properties:
@@ -85,15 +85,15 @@ upload:
   mode: oss
   local:
     # nginx映射本地文件路径，无域名则为 ip:83
-    url: http://101.34.3.207:83/
+    url: http://你的Ip:83/
     # 本地文件存储路径
     path: /usr/local/upload/
   oss:
-    url: http://oos-test-sunwenbo.oss-cn-shanghai.aliyuncs.com/
-    endpoint: oss-cn-shanghai.aliyuncs.com
-    accessKeyId: LTAI5tJnSoxZvMkuHRjBWg12
-    accessKeySecret: MQ8x63iox9ai1xJ86x8UJ14bXGIklU
-    bucketName: oos-test-sunwenbo
+    url: 
+    endpoint: 
+    accessKeyId: 
+    accessKeySecret:
+    bucketName: 
   cos:
     url: http://Bucket域名/
     secretId: cos的secretId
@@ -103,7 +103,7 @@ upload:
 
 # 网站前台域名（邮件通知用）
 website:
-  url: http://101.34.3.207
+  url: http://你的Ip
 
 #第三方配置信息
 qq:
