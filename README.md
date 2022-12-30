@@ -28,7 +28,7 @@
 
 ## 在线地址
 
-**项目链接：** [变成派大星](https://www.hughswb.com)
+**项目链接：** [变成派大星](http://www.hughswb.com)
 
 **后端截图**
 ![img.png](img.png)
