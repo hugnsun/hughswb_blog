@@ -35,7 +35,7 @@ public interface ArticleDao extends BaseMapper<Article> {
      * @param articleId 文章id
      * @return 文章信息
      */
-    ArticleDTO getArticleById(@Param("articleId") Integer articleId);
+    ArticleDTO getArticleById(@Param("articleId") Integer articleId,@Param("jurisdiction") Integer jurisdiction);
 
     /**
      * 根据条件查询文章

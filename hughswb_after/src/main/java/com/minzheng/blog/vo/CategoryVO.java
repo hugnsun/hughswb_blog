@@ -36,4 +36,8 @@ public class CategoryVO {
     @ApiModelProperty(name = "categoryName", value = "分类名", required = true, dataType = "String")
     private String categoryName;
 
+
+    @ApiModelProperty("是否加密 0 不加密 1 加密")
+    private Integer encryptionOrNot;
+
 }

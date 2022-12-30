@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
@@ -42,4 +43,9 @@ public class Category {
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("是否加密 0 不加密 1 加密")
+    private Integer encryptionOrNot;
 }

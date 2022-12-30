@@ -33,4 +33,9 @@ public class CategoryDTO {
      */
     private Integer articleCount;
 
+    /**
+     * 是否加密
+     */
+    private Integer encryptionOrNot;
+
 }

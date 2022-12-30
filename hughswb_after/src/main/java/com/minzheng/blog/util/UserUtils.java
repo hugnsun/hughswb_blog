@@ -1,6 +1,7 @@
 package com.minzheng.blog.util;
 
 import com.minzheng.blog.dto.UserDetailDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
  * @date 2021/08/10
  */
 @Component
+@Slf4j
 public class UserUtils {
 
     /**
@@ -21,8 +23,13 @@ public class UserUtils {
      */
     public static UserDetailDTO getLoginUser() {
         try {
-           return  (UserDetailDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if ("anonymousUser".equals(String.valueOf(principal))) {
+                return  null;
+            }
+            return  (UserDetailDTO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (Exception e) {
+            log.error("出现异常 异常信息 {}",e.getMessage());
             return null;
         }
     }

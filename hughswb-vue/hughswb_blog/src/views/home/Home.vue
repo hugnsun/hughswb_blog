@@ -53,22 +53,32 @@
                     <el-container
                         style="margin: 2%; margin-top: 5%; height: 80vh"
                     >
-                        <el-header
-                            style="
-                                height: 5px;
-                                text-align: center;
-                                font-size: 16px;
-                                font-weight: 500;
-                                margin-right: 40px;
-                            "
+                        <el-header class="el-header-class"
                             ><span class="head_text">文章分类</span></el-header
                         >
                         <el-main style="padding: 10px">
                             <el-card
+                                id="header-style"
                                 shadow="hover"
                                 v-for="(categoryItem, id) of categoryData"
                                 :key="id"
                             >
+                                <template slot="header" class="clearfix">
+                                    <p
+                                        class="titleStyle"
+                                        :style="
+                                            categoryItem.encryptionOrNot == 1
+                                                ? 'color: #F56C6C'
+                                                : 'color: #375ed1'
+                                        "
+                                    >
+                                        {{
+                                            categoryItem.encryptionOrNot
+                                                ? "加密"
+                                                : "公开"
+                                        }}
+                                    </p>
+                                </template>
                                 <router-link
                                     :to="'/categories/' + categoryItem.id"
                                 >
@@ -340,6 +350,12 @@ export default {
                     this.initTyped(hitokoto);
                 });
         },
+        //根据条件更改卡片颜色
+        classType(data) {
+            if (data.encryptionOrNot == 1) {
+                return "background-color: red";
+            }
+        },
         allCategory() {
             this.axios.get("/api/allClassifications").then(({ data }) => {
                 this.categoryData = data.data;
@@ -404,6 +420,7 @@ export default {
                 });
         },
     },
+
     computed: {
         isRight() {
             return function (index) {
@@ -461,12 +478,26 @@ export default {
 </style>
 
 <style scoped>
+.titleStyle {
+    font-weight: 500;
+    text-align: center;
+    background: url(https://oursdream-oss-ram.oss-cn-shanghai.aliyuncs.com/2022-10-30/9213053a-e26e-4f89-8aff-7cbcb986de27/%E7%9F%A9%E5%BD%A2%206.png);
+    text-align: left;
+    background-repeat: no-repeat;
+    width: 100px;
+    height: 40px;
+    background-size: 100%;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    margin-left: -20px;
+    margin-top: -18px;
+}
 .card {
     position: relative;
     box-shadow: 0 0 20px rgba(213, 68, 68, 0.895);
     animation: shadow-pulse 2s ease-in-out infinite;
 }
-
 @keyframes shadow-pulse {
     0% {
         box-shadow: 0 0 10px rgba(233, 72, 72, 0.2);
@@ -516,31 +547,15 @@ export default {
     border: 2px solid rgb(240, 240, 245);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5),
         0 0 40px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1);
-    animation: breathe 1s ease-in infinite;
-    animation: pulse 1s;
+    animation: breathe 2s ease-in infinite;
 }
 
 @keyframes breathe {
     0% {
-        opacity: 0.5;
-    }
-    25% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
+        opacity: 0.7;
     }
     100% {
         opacity: 1;
-    }
-}
-@keyframes pulse {
-    0% {
-        transform: scale(0.6);
-    }
-
-    100% {
-        transform: scale(1);
     }
 }
 .category_name {
@@ -644,6 +659,7 @@ export default {
         transition: all 0.3s;
     }
 }
+
 @media (max-width: 759px) {
     .blog-title {
         font-size: 26px;
@@ -771,6 +787,13 @@ export default {
 .author-avatar {
     transition: all 0.5s;
 }
+.el-header-class {
+    height: 5px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 40px;
+}
 .author-avatar:hover {
     transform: rotate(360deg);
 }
@@ -822,6 +845,15 @@ export default {
     }
     50% {
         transform: scale(1.2);
+    }
+}
+</style>
+<style lang="scss">
+#header-style {
+    .el-card__header {
+        padding: 18px 20px;
+        box-sizing: border-box;
+        height: 30px;
     }
 }
 </style>

@@ -114,9 +114,14 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
 
     @Override
     public List<ArticleHomeDTO> listArticles() {
-        UserDetailDTO loginUser = UserUtils.getLoginUser();
-        Integer status = loginUser !=  null && loginUser.getLoginType() == 1 ?  null : 1;
+        Integer status = jurisdiction();
         return articleDao.listArticles(PageUtils.getLimitCurrent(), PageUtils.getSize(),status);
+    }
+
+    private Integer jurisdiction() {
+        UserDetailDTO loginUser = UserUtils.getLoginUser();
+       List<Integer> roleId  = Arrays.asList(1,4);
+        return loginUser !=  null && roleId.contains(loginUser.getLoginType()) ?  null : 1;
     }
 
     @Override
@@ -147,7 +152,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
             return BeanCopyUtils.copyList(articleList, ArticleRecommendDTO.class);
         });
         // 查询id对应文章
-        ArticleDTO article = articleDao.getArticleById(articleId);
+        Integer jurisdiction = jurisdiction();
+        ArticleDTO article = articleDao.getArticleById(articleId,jurisdiction);
         if (Objects.isNull(article)) {
             throw new BizException("文章不存在");
         }

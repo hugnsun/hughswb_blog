@@ -1,5 +1,6 @@
 package com.minzheng.blog.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -96,6 +97,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
         Category category = Category.builder()
                 .id(categoryVO.getId())
                 .categoryName(categoryVO.getCategoryName())
+                .encryptionOrNot(categoryVO.getEncryptionOrNot())
                 .build();
         this.saveOrUpdate(category);
     }
@@ -111,7 +113,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, Category> impl
         categories.forEach(ca->{
             CategoryDTO categoryDTO = new CategoryDTO();
             BeanUtils.copyProperties(ca,categoryDTO);
-            categoryDTO.setArticleCount(integerListMap.get(ca.getId()).size());
+            categoryDTO.setArticleCount(CollUtil.isNotEmpty(integerListMap.get(ca.getId())) ? integerListMap.get(ca.getId()).size() : 0);
             categoryDTOS.add(categoryDTO);
         });
         return categoryDTOS;
