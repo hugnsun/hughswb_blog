@@ -3,6 +3,7 @@ package com.minzheng.blog.controller;
 
 import com.minzheng.blog.annotation.OptLog;
 import com.minzheng.blog.dto.*;
+import com.minzheng.blog.entity.Article;
 import com.minzheng.blog.enums.FilePathEnum;
 import com.minzheng.blog.service.ArticleService;
 import com.minzheng.blog.strategy.context.ArticleImportStrategyContext;
@@ -53,9 +54,9 @@ public class ArticleController {
      * @return {@link Result<ArticleHomeDTO>} 首页文章列表
      */
     @ApiOperation(value = "查看首页文章")
-    @GetMapping("/articles")
-    public Result<List<ArticleHomeDTO>> listArticles() {
-        return Result.ok(articleService.listArticles());
+    @PostMapping("/articles")
+    public Result<List<ArticleHomeDTO>> listArticles(@RequestBody Article article) {
+        return Result.ok(articleService.listArticles(article));
     }
 
     /**

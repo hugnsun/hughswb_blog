@@ -99,7 +99,15 @@
                 <v-card class="animated zoomIn" v-if="talkList.length > 0">
                     <Swiper :list="talkList" />
                 </v-card>
-
+                <el-tabs v-model="tagId" @tab-click="handleClick">
+                    <el-tab-pane
+                        v-for="(tag, index) of tagList"
+                        :key="index"
+                        :label="tag.tagName"
+                        :name="tag.id"
+                    >
+                    </el-tab-pane>
+                </el-tabs>
                 <v-card
                     class="animated zoomIn article-card"
                     style="border-radius: 12px 8px 8px 12px"
@@ -302,6 +310,7 @@ export default {
     created() {
         this.init();
         this.listHomeTalks();
+        this.getTagDic();
         this.allCategory();
         this.timer = setInterval(this.runTime, 1000);
     },
@@ -335,6 +344,8 @@ export default {
             talkList: [],
             categoryData: [],
             current: 1,
+            tagId: "35",
+            tagList: [],
         };
     },
     methods: {
@@ -393,12 +404,18 @@ export default {
             str += day.getSeconds() + "秒";
             this.time = str;
         },
+        getTagDic() {
+            this.axios.get("/api/admin/tagDictionary").then(({ data }) => {
+                this.tagList = data.data;
+            });
+        },
         infiniteHandler($state) {
             let md = require("markdown-it")();
             this.axios
-                .get("/api/articles", {
+                .post("/api/articles", {
                     params: {
                         current: this.current,
+                        tagId: this.tagId,
                     },
                 })
                 .then(({ data }) => {

@@ -16,7 +16,7 @@ import com.minzheng.blog.service.TagService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.minzheng.blog.util.BeanCopyUtils;
 import com.minzheng.blog.vo.TagVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,10 +30,11 @@ import java.util.Objects;
  * @date 2021/07/28
  */
 @Service
+@AllArgsConstructor
 public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagService {
-    @Autowired
+
     private TagDao tagDao;
-    @Autowired
+
     private ArticleTagDao articleTagDao;
 
     @Override
@@ -92,6 +93,14 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
         }
         Tag tag = BeanCopyUtils.copyObject(tagVO, Tag.class);
         this.saveOrUpdate(tag);
+    }
+
+    @Override
+    public List<Tag> tagDictionary() {
+        List<Tag> tags = tagDao.selectList(new LambdaQueryWrapper<Tag>().select(Tag::getId).select(Tag::getTagName).orderByAsc(Tag::getSort));
+        Tag all = Tag.builder().id(-1).tagName("全部").build();
+        tags.add(0,all);
+        return tags;
     }
 
 }

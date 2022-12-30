@@ -100,5 +100,4 @@ public class ConditionVO {
      */
     @ApiModelProperty(name = "isReview", value = "是否审核", dataType = "Integer")
     private Integer isReview;
-
 }

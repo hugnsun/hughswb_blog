@@ -55,4 +55,8 @@ public interface TagService extends IService<Tag> {
      */
     void saveOrUpdateTag(TagVO tagVO);
 
+    /**
+     * @return 返回标签字典
+     */
+    List<Tag> tagDictionary();
 }

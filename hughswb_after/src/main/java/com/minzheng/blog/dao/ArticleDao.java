@@ -27,7 +27,7 @@ public interface ArticleDao extends BaseMapper<Article> {
      * @param size    大小
      * @return 文章列表
      */
-    List<ArticleHomeDTO> listArticles(@Param("current") Long current, @Param("size") Long size,@Param("status") Integer status);
+    List<ArticleHomeDTO> listArticles(@Param("current") Long current, @Param("size") Long size,@Param("article") Article article);
 
     /**
      * 根据id查询文章

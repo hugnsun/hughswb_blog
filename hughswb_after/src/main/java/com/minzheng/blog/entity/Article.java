@@ -91,4 +91,10 @@ public class Article {
     @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
+
+    /**
+     * TagId
+     */
+    private Integer tagId;
+
 }

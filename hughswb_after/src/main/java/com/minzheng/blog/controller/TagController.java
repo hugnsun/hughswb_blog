@@ -94,5 +94,14 @@ public class TagController {
         return Result.ok();
     }
 
+    /**
+     * 返回标签字典
+     * @return {@link Result<>}
+     */
+    @ApiOperation(value = "返回标签字典")
+    @GetMapping("/admin/tagDictionary")
+    public Result<?> tagDictionary() {
+        return Result.ok(tagService.tagDictionary());
+    }
 }
 

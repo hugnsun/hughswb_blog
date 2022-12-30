@@ -113,9 +113,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     }
 
     @Override
-    public List<ArticleHomeDTO> listArticles() {
+    public List<ArticleHomeDTO> listArticles(Article article) {
         Integer status = jurisdiction();
-        return articleDao.listArticles(PageUtils.getLimitCurrent(), PageUtils.getSize(),status);
+        article.setStatus(status);
+        return articleDao.listArticles(PageUtils.getLimitCurrent(), PageUtils.getSize(),article);
     }
 
     private Integer jurisdiction() {
@@ -126,7 +127,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
 
     @Override
     public ArticlePreviewListDTO listArticlesByCondition(ConditionVO condition) {
+
         // 查询文章
+        condition.setStatus(jurisdiction());
         List<ArticlePreviewDTO> articlePreviewDTOList = articleDao.listArticlesByCondition(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
         // 搜索条件对应名(标签或分类名)
         String name;

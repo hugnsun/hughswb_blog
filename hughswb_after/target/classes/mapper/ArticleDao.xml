@@ -91,8 +91,11 @@
 	    FROM
  		tb_article
  		  <where>
-              <if test="status != null">
-                  AND status = #{status}
+              <if test="article.status != null">
+                  AND status = #{article.status}
+              </if>
+              <if test="article.tagId !=null and article.tagId != 0 and article.tagId > 0">
+                  and tag_id = #{article.tagId}
               </if>
               and is_delete = 0
           </where>
@@ -143,9 +146,13 @@
                 WHERE
                 tag_id = #{condition.tagId})
             </if>
+
+            <if test="condition.status != null and condition.status != ''">
+                AND status = #{condition.status}
+            </if>
         </where>
         AND is_delete = 0
-        AND status = 1
+
         ORDER BY id DESC
         LIMIT #{current},#{size}
         ) a
@@ -179,7 +186,6 @@
         </if>
 	   and  a.id = #{articleId}
         AND a.is_delete = 0
-        AND a.status = 1
     </where>
 	</select>
 
