@@ -97,7 +97,7 @@ public class TagServiceImpl extends ServiceImpl<TagDao, Tag> implements TagServi
 
     @Override
     public List<Tag> tagDictionary() {
-        List<Tag> tags = tagDao.selectList(new LambdaQueryWrapper<Tag>().select(Tag::getId).select(Tag::getTagName).orderByAsc(Tag::getSort));
+        List<Tag> tags = tagDao.selectList(new LambdaQueryWrapper<Tag>().select(Tag::getId,Tag::getTagName).orderByAsc(Tag::getSort));
         Tag all = Tag.builder().id(-1).tagName("全部").build();
         tags.add(0,all);
         return tags;

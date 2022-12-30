@@ -99,78 +99,84 @@
                 <v-card class="animated zoomIn" v-if="talkList.length > 0">
                     <Swiper :list="talkList" />
                 </v-card>
-                <el-tabs v-model="tagId" @tab-click="handleClick">
+                <el-tabs v-model="tagId" @tab-click="tableClick">
                     <el-tab-pane
                         v-for="(tag, index) of tagList"
                         :key="index"
                         :label="tag.tagName"
                         :name="tag.id"
                     >
+                        <v-card
+                            class="animated zoomIn article-card"
+                            style="border-radius: 12px 8px 8px 12px"
+                            v-for="(item, index) of articleList"
+                            :key="item.id"
+                        >
+                            <!-- 文章封面图 -->
+                            <div :class="isRight(index)">
+                                <router-link :to="'/articles/' + item.id">
+                                    <v-img
+                                        class="on-hover"
+                                        width="100%"
+                                        height="100%"
+                                        :src="item.articleCover"
+                                    />
+                                </router-link>
+                            </div>
+                            <!-- 文章信息 -->
+                            <div class="article-wrapper">
+                                <div style="line-height: 1.4">
+                                    <router-link :to="'/articles/' + item.id">
+                                        {{ item.articleTitle }}
+                                    </router-link>
+                                </div>
+                                <div class="article-info">
+                                    <!-- 是否置顶 -->
+                                    <span v-if="item.isTop == 1">
+                                        <span style="color: #ff7242">
+                                            <i class="iconfont iconzhiding" />
+                                            置顶
+                                        </span>
+                                        <span class="separator">|</span>
+                                    </span>
+                                    <!-- 发表时间 -->
+                                    <v-icon size="14"
+                                        >mdi-calendar-month-outline</v-icon
+                                    >
+                                    {{ item.createTime | date }}
+                                    <span class="separator">|</span>
+                                    <!-- 文章分类 -->
+                                    <router-link
+                                        :to="'/categories/' + item.categoryId"
+                                    >
+                                        <v-icon size="14"
+                                            >mdi-inbox-full</v-icon
+                                        >
+                                        {{ item.categoryName }}
+                                    </router-link>
+                                    <span class="separator">|</span>
+                                    <!-- 文章标签 -->
+                                    <router-link
+                                        style="display: inline-block"
+                                        :to="'/tags/' + tag.id"
+                                        class="mr-1"
+                                        v-for="tag of item.tagDTOList"
+                                        :key="tag.id"
+                                    >
+                                        <v-icon size="14"
+                                            >mdi-tag-multiple</v-icon
+                                        >{{ tag.tagName }}
+                                    </router-link>
+                                </div>
+                                <!-- 文章内容 -->
+                                <div class="article-content">
+                                    {{ item.articleContent }}
+                                </div>
+                            </div>
+                        </v-card>
                     </el-tab-pane>
                 </el-tabs>
-                <v-card
-                    class="animated zoomIn article-card"
-                    style="border-radius: 12px 8px 8px 12px"
-                    v-for="(item, index) of articleList"
-                    :key="item.id"
-                >
-                    <!-- 文章封面图 -->
-                    <div :class="isRight(index)">
-                        <router-link :to="'/articles/' + item.id">
-                            <v-img
-                                class="on-hover"
-                                width="100%"
-                                height="100%"
-                                :src="item.articleCover"
-                            />
-                        </router-link>
-                    </div>
-                    <!-- 文章信息 -->
-                    <div class="article-wrapper">
-                        <div style="line-height: 1.4">
-                            <router-link :to="'/articles/' + item.id">
-                                {{ item.articleTitle }}
-                            </router-link>
-                        </div>
-                        <div class="article-info">
-                            <!-- 是否置顶 -->
-                            <span v-if="item.isTop == 1">
-                                <span style="color: #ff7242">
-                                    <i class="iconfont iconzhiding" />
-                                    置顶
-                                </span>
-                                <span class="separator">|</span>
-                            </span>
-                            <!-- 发表时间 -->
-                            <v-icon size="14"
-                                >mdi-calendar-month-outline</v-icon
-                            >
-                            {{ item.createTime | date }}
-                            <span class="separator">|</span>
-                            <!-- 文章分类 -->
-                            <router-link :to="'/categories/' + item.categoryId">
-                                <v-icon size="14">mdi-inbox-full</v-icon>
-                                {{ item.categoryName }}
-                            </router-link>
-                            <span class="separator">|</span>
-                            <!-- 文章标签 -->
-                            <router-link
-                                style="display: inline-block"
-                                :to="'/tags/' + tag.id"
-                                class="mr-1"
-                                v-for="tag of item.tagDTOList"
-                                :key="tag.id"
-                            >
-                                <v-icon size="14">mdi-tag-multiple</v-icon
-                                >{{ tag.tagName }}
-                            </router-link>
-                        </div>
-                        <!-- 文章内容 -->
-                        <div class="article-content">
-                            {{ item.articleContent }}
-                        </div>
-                    </div>
-                </v-card>
+
                 <!-- 无限加载 -->
                 <infinite-loading @infinite="infiniteHandler">
                     <div slot="no-more" />
@@ -344,7 +350,7 @@ export default {
             talkList: [],
             categoryData: [],
             current: 1,
-            tagId: "35",
+            tagId: 35,
             tagList: [],
         };
     },
@@ -388,6 +394,7 @@ export default {
                 top: document.documentElement.clientHeight,
             });
         },
+        tableClick() {},
         runTime() {
             var timeold =
                 new Date().getTime() -
@@ -410,6 +417,7 @@ export default {
             });
         },
         infiniteHandler($state) {
+            console.log("123");
             let md = require("markdown-it")();
             let params = {
                 current: this.current,
