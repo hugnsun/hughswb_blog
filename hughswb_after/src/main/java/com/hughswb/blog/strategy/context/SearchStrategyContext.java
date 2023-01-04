@@ -14,7 +14,7 @@ import static com.hughswb.blog.enums.SearchModeEnum.getStrategy;
 /**
  * 搜索策略上下文
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 @Service

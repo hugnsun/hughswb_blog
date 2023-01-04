@@ -4,7 +4,7 @@ package com.hughswb.blog.constant;
  * mqprefix常量
  * mq常量
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 public class MQPrefixConst {

@@ -29,7 +29,7 @@ import static com.hughswb.blog.enums.ZoneEnum.SHANGHAI;
 /**
  * 访问量统计服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/06
  */
 @Service

@@ -9,7 +9,7 @@ import com.hughswb.blog.vo.ConditionVO;
 /**
  * 操作日志服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 public interface OperationLogService extends IService<OperationLog> {

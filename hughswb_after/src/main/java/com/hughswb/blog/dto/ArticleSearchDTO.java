@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 /**
  * 搜索文章
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Data

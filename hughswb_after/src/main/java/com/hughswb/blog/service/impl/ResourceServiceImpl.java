@@ -27,7 +27,7 @@ import static com.hughswb.blog.constant.CommonConst.FALSE;
 /**
  * 资源服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Service

@@ -38,7 +38,7 @@ import static com.hughswb.blog.enums.CommentTypeEnum.*;
 /**
  * 评论服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/31
  * @since 2020-05-18
  */

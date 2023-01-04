@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 /**
  * 照片
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/04
  */
 @Data

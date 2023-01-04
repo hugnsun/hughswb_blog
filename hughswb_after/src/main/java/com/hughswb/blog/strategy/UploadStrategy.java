@@ -7,7 +7,7 @@ import java.io.InputStream;
 /**
  * 上传策略
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 public interface UploadStrategy {

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * 页面信息
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/07
  */
 @Data

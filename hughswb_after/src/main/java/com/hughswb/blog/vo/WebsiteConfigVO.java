@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 网站配置信息
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/09
  */
 @Data

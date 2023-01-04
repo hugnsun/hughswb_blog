@@ -4,7 +4,7 @@ package com.hughswb.blog.constant;
 /**
  * 公共常量
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 public class CommonConst {

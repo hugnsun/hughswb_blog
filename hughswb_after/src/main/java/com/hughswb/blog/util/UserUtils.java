@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * 用户工具类
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Component

@@ -47,7 +47,7 @@ import static com.hughswb.blog.enums.ArticleStatusEnum.PUBLIC;
 /**
  * 文章服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Service

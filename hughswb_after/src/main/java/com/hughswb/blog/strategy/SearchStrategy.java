@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 搜索策略
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 public interface SearchStrategy {

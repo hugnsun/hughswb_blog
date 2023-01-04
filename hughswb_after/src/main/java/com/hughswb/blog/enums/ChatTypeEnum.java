@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 聊天类型枚举
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/06
  */
 @Getter

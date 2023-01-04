@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * 文章类型枚举
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2022/07/29
  */
 @Getter

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * 说说控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2022/01/23
  */
 @Api(tags = "说说模块")

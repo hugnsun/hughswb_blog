@@ -36,7 +36,7 @@ import static com.hughswb.blog.enums.ZoneEnum.SHANGHAI;
 /**
  * 第三方登录抽象模板
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Service

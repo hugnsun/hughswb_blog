@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 文章服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 public interface ArticleService extends IService<Article> {

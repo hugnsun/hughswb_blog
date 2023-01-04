@@ -47,7 +47,7 @@ import static com.hughswb.blog.util.CommonUtils.getRandomCode;
 /**
  * 用户账号服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Service

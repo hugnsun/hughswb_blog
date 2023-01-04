@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 文章预览列表
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Data

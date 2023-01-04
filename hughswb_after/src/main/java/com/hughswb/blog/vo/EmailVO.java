@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * 邮件
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Data

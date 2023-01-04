@@ -13,7 +13,7 @@ import static com.hughswb.blog.enums.ZoneEnum.SHANGHAI;
 /**
  * mybatis plus自动填充
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/06/12
  **/
 @Log4j2

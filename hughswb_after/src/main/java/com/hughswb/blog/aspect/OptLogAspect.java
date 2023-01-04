@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * 操作日志切面处理
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 @Aspect

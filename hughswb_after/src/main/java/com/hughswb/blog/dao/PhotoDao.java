@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * 照片映射器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/04
  */
 @Repository

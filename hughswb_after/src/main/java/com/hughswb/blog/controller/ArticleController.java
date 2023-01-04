@@ -24,7 +24,7 @@ import static com.hughswb.blog.constant.OptTypeConst.*;
 /**
  * 文章控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Api(tags = "文章模块")

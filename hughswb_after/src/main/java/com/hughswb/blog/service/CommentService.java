@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 评论服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 public interface CommentService extends IService<Comment> {

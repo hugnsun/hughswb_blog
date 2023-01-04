@@ -25,7 +25,7 @@ import static com.hughswb.blog.constant.OptTypeConst.REMOVE;
 /**
  * 分类控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 @Api(tags = "分类模块")

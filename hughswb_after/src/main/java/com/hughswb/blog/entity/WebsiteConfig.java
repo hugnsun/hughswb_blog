@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * 网站配置
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/09
  */
 @Data

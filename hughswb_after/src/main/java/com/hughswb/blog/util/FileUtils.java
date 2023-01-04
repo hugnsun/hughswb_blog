@@ -12,7 +12,7 @@ import java.util.Objects;
 /**
  * 文件md5工具类
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Log4j2

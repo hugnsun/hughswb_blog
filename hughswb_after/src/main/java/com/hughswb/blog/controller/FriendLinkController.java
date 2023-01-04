@@ -21,7 +21,7 @@ import static com.hughswb.blog.constant.OptTypeConst.REMOVE;
 /**
  * 友链控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 @Api(tags = "友链模块")

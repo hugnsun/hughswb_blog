@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 友链服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 public interface FriendLinkService extends IService<FriendLink> {

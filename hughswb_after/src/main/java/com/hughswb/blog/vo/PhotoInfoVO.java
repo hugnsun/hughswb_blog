@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 照片
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/05
  */
 @Data

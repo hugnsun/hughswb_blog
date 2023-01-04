@@ -22,7 +22,7 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 /**
  * Security配置类
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 @Configuration

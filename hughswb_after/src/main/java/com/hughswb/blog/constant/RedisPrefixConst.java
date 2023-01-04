@@ -3,7 +3,7 @@ package com.hughswb.blog.constant;
 /**
  * redis常量
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 public class RedisPrefixConst {

@@ -28,7 +28,7 @@ import static com.hughswb.blog.enums.ZoneEnum.SHANGHAI;
 /**
  * 用户详细信息服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Service

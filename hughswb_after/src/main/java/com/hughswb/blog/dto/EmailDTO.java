@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 邮件
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Data

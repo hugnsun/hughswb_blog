@@ -18,7 +18,7 @@ import static com.hughswb.blog.constant.OptTypeConst.*;
 /**
  * 照片控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/05
  */
 @Api(tags = "照片模块")

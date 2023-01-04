@@ -11,7 +11,7 @@ import static com.hughswb.blog.enums.StatusCodeEnum.FAIL;
 /**
  * 业务异常
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 @Getter

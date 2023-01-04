@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 /**
  * elasticsearch
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Repository

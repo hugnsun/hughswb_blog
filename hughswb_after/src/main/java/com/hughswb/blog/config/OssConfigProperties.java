@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * oss配置属性
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Data

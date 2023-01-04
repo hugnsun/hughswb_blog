@@ -25,7 +25,7 @@ import static com.hughswb.blog.enums.StatusCodeEnum.QQ_LOGIN_ERROR;
 /**
  * qq登录策略实现
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Service("qqLoginStrategyImpl")

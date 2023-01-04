@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 用户禁用状态
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/06
  */
 @Data

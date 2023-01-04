@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 /**
  * 查询条件
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 @Data

@@ -32,7 +32,7 @@ import static com.hughswb.blog.enums.PhotoAlbumStatusEnum.PUBLIC;
 /**
  * 相册服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/04
  */
 @Service

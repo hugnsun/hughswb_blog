@@ -32,7 +32,7 @@ import static com.hughswb.blog.enums.ChatTypeEnum.*;
 /**
  * websocket服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Data

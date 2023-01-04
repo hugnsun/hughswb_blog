@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 评论数量dto
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2022/01/23
  */
 @Data

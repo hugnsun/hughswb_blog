@@ -22,7 +22,7 @@ import static com.hughswb.blog.constant.OptTypeConst.SAVE_OR_UPDATE;
 /**
  * 标签控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 @Api(tags = "标签模块")

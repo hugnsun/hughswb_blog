@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 相册映射器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/04
  */
 @Repository

@@ -15,7 +15,7 @@ import static com.hughswb.blog.constant.CommonConst.*;
 /**
  * 分页拦截器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/18
  **/
 public class PageableHandlerInterceptor implements HandlerInterceptor {

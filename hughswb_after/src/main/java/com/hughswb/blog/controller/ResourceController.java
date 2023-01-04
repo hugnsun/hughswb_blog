@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 资源控制器
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/27
  */
 @Api(tags = "资源模块")

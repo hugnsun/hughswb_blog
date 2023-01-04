@@ -5,7 +5,7 @@ import com.hughswb.blog.dto.UserInfoDTO;
 /**
  * 第三方登录策略
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 public interface SocialLoginStrategy {

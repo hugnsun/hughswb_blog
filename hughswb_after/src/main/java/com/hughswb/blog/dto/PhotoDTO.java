@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 照片dto
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/05
  */
 @Data

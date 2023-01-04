@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 /**
  * 聊天记录
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 @Data

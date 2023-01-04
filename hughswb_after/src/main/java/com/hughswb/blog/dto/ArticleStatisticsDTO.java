@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * 文章统计
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Data

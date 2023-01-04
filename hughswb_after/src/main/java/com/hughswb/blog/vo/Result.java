@@ -9,7 +9,7 @@ import static com.hughswb.blog.enums.StatusCodeEnum.*;
 /**
  * 接口返回类
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/08/10
  */
 @Data

@@ -6,7 +6,7 @@ import com.hughswb.blog.entity.RoleResource;
 /**
  * 角色资源服务
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/29
  */
 public interface RoleResourceService extends IService<RoleResource> {

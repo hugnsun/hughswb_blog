@@ -15,7 +15,7 @@ import static com.hughswb.blog.constant.CommonConst.APPLICATION_JSON;
 /**
  * 登录失败处理
  *
- * @author yezhiqiu
+ * @author swb
  * @date 2021/07/28
  */
 @Component
