@@ -11,6 +11,7 @@ import com.hughswb.blog.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,22 +26,22 @@ import java.util.List;
  */
 @Api(tags = "用户账号模块")
 @RestController
+@AllArgsConstructor
 public class UserAuthController {
-    @Autowired
     private UserAuthService userAuthService;
 
     /**
      * 发送邮箱验证码
      *
-     * @param username 用户名
+     * @param email 用户名
      * @return {@link Result<>}
      */
     @AccessLimit(seconds = 60, maxCount = 1)
     @ApiOperation(value = "发送邮箱验证码")
-    @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String")
+    @ApiImplicitParam(name = "email", value = "用户名", required = true, dataType = "String")
     @GetMapping("/users/code")
-    public Result<?> sendCode(String username) {
-        userAuthService.sendCode(username);
+    public Result<?> sendCode(String email) {
+        userAuthService.sendCode(email);
         return Result.ok();
     }
 

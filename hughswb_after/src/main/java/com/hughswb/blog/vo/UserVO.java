@@ -20,14 +20,19 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @ApiModel(description = "用户账号")
 public class UserVO {
-
     /**
      * 用户名
      */
-    @NotBlank(message = "邮箱不能为空")
-    @Email(message = "邮箱格式不正确")
+    @NotBlank(message = "用户名不能为空")
     @ApiModelProperty(name = "username", value = "用户名", required = true, dataType = "String")
     private String username;
+    /**
+     * 邮箱
+     */
+    @NotBlank(message = "邮箱不能为空")
+    @Email(message = "邮箱格式不正确")
+    @ApiModelProperty(name = "email", value = "邮箱", required = true, dataType = "String")
+    private String email;
 
     /**
      * 密码

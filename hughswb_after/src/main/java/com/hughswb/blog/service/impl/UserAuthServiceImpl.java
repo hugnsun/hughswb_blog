@@ -24,6 +24,7 @@ import com.hughswb.blog.strategy.context.SocialLoginStrategyContext;
 import com.hughswb.blog.util.PageUtils;
 import com.hughswb.blog.util.UserUtils;
 import com.hughswb.blog.vo.*;
+import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -51,39 +52,40 @@ import static com.hughswb.blog.util.CommonUtils.getRandomCode;
  * @date 2021/08/10
  */
 @Service
+@AllArgsConstructor
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> implements UserAuthService {
-    @Autowired
+
     private RedisService redisService;
-    @Autowired
+
     private UserAuthDao userAuthDao;
-    @Autowired
+
     private UserRoleDao userRoleDao;
-    @Autowired
+
     private UserInfoDao userInfoDao;
-    @Autowired
+
     private BlogInfoService blogInfoService;
-    @Autowired
+
     private RabbitTemplate rabbitTemplate;
-    @Autowired
+
     private SocialLoginStrategyContext socialLoginStrategyContext;
 
     @Override
-    public void sendCode(String username) {
+    public void sendCode(String email) {
         // 校验账号是否合法
-        if (!checkEmail(username)) {
+        if (!checkEmail(email)) {
             throw new BizException("请输入正确邮箱");
         }
         // 生成六位随机验证码发送
         String code = getRandomCode();
         // 发送验证码
         EmailDTO emailDTO = EmailDTO.builder()
-                .email(username)
+                .email(email)
                 .subject("验证码")
-                .content("您的验证码为 " + code + " 有效期15分钟，请不要告诉他人哦！")
+                .content("变成派大星网站注册 您的验证码为 " + code + " 有效期15分钟，请不要告诉他人哦！变成派大星 祝您生活愉快")
                 .build();
         rabbitTemplate.convertAndSend(EMAIL_EXCHANGE, "*", new Message(JSON.toJSONBytes(emailDTO), new MessageProperties()));
         // 将验证码存入redis，设置过期时间为15分钟
-        redisService.set(USER_CODE_KEY + username, code, CODE_EXPIRE_TIME);
+        redisService.set(USER_CODE_KEY + email, code, CODE_EXPIRE_TIME);
     }
 
     @Override
@@ -124,8 +126,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         }
         // 新增用户信息
         UserInfo userInfo = UserInfo.builder()
-                .email(user.getUsername())
-                .nickname(CommonConst.DEFAULT_NICKNAME + IdWorker.getId())
+                .email(user.getEmail())
+                .nickname(user.getUsername())
                 .avatar(blogInfoService.getWebsiteConfig().getUserAvatar())
                 .build();
         userInfoDao.insert(userInfo);
@@ -139,6 +141,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         UserAuth userAuth = UserAuth.builder()
                 .userInfoId(userInfo.getId())
                 .username(user.getUsername())
+                .email(user.getEmail())
                 .password(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
                 .loginType(LoginTypeEnum.EMAIL.getType())
                 .build();
@@ -154,7 +157,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         // 根据用户名修改密码
         userAuthDao.update(new UserAuth(), new LambdaUpdateWrapper<UserAuth>()
                 .set(UserAuth::getPassword, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
-                .eq(UserAuth::getUsername, user.getUsername()));
+                .eq(UserAuth::getEmail, user.getEmail()));
     }
 
     @Override
@@ -205,13 +208,13 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
      * @return 结果
      */
     private Boolean checkUser(UserVO user) {
-        if (!user.getCode().equals(redisService.get(USER_CODE_KEY + user.getUsername()))) {
+        if (!user.getCode().equals(redisService.get(USER_CODE_KEY + user.getEmail()))) {
             throw new BizException("验证码错误！");
         }
         //查询用户名是否存在
         UserAuth userAuth = userAuthDao.selectOne(new LambdaQueryWrapper<UserAuth>()
-                .select(UserAuth::getUsername)
-                .eq(UserAuth::getUsername, user.getUsername()));
+                .select(UserAuth::getEmail)
+                .eq(UserAuth::getEmail, user.getEmail()));
         return Objects.nonNull(userAuth);
     }
 

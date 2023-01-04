@@ -21,9 +21,9 @@ public interface UserAuthService extends IService<UserAuth> {
     /**
      * 发送邮箱验证码
      *
-     * @param username 邮箱号
+     * @param email 邮箱号
      */
-    void sendCode(String username);
+    void sendCode(String email);
 
     /**
      * 获取用户区域分布

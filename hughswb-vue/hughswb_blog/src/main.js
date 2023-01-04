@@ -24,8 +24,8 @@ import Toast from "./components/toast/index";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 
-import VueParticles from 'vue-particles'
-Vue.use(VueParticles)
+import VueParticles from "vue-particles";
+Vue.use(VueParticles);
 Vue.prototype.config = config;
 Vue.config.productionTip = false;
 Vue.use(animated);

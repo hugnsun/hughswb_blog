@@ -39,6 +39,11 @@ public class UserAuth {
     private String username;
 
     /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
      * 密码
      */
     private String password;
