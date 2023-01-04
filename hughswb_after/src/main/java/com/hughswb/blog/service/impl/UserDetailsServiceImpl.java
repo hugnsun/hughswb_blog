@@ -10,6 +10,7 @@ import com.hughswb.blog.exception.BizException;
 import com.hughswb.blog.service.RedisService;
 import com.hughswb.blog.util.IpUtils;
 import eu.bitwalker.useragentutils.UserAgent;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,14 +33,15 @@ import static com.hughswb.blog.enums.ZoneEnum.SHANGHAI;
  * @date 2021/08/10
  */
 @Service
+@AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    @Autowired
+
     private UserAuthDao userAuthDao;
-    @Autowired
+
     private UserInfoDao userInfoDao;
-    @Autowired
+
     private RoleDao roleDao;
-    @Autowired
+
     private RedisService redisService;
     @Resource
     private HttpServletRequest request;
