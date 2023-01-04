@@ -10,7 +10,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.minzheng</groupId>
+    <groupId>com.hughswb</groupId>
     <artifactId>blog-springboot</artifactId>
     <version>0.0.1</version>
     <name>blog</name>
