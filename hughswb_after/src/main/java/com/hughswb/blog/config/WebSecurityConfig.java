@@ -1,6 +1,7 @@
 package com.hughswb.blog.config;
 
 import com.hughswb.blog.handler.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,16 +28,17 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
  */
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
+
     private AuthenticationEntryPointImpl authenticationEntryPoint;
-    @Autowired
+
     private AccessDeniedHandlerImpl accessDeniedHandler;
-    @Autowired
+
     private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
-    @Autowired
+
     private AuthenticationFailHandlerImpl authenticationFailHandler;
-    @Autowired
+
     private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Bean

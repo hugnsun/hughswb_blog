@@ -14,11 +14,22 @@
     <artifactId>blog-springboot</artifactId>
     <version>0.0.1</version>
     <name>blog</name>
-    <description>基于springboot + vue开发的前后端分离博客</description>
+    <description>springboot+vue</description>
     <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>
+        <knife4j.version>2.0.7</knife4j.version>
+        <jedis.version>3.1.0</jedis.version>
+        <hibernate.version>6.2.0.Final</hibernate.version>
+        <aliyun.version>3.8.0</aliyun.version>
+        <cos_api.version>5.6.75</cos_api.version>
+        <fastjson.version>2.0.7</fastjson.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <mp.version>3.4.0</mp.version>
+        <hutool.version>5.7.5</hutool.version>
+        <sensitive.version>0.2.0</sensitive.version>
+        <UserAgentUtils.version>1.20</UserAgentUtils.version>
     </properties>
 
     <dependencies>
@@ -42,12 +53,7 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -74,31 +80,43 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.7</version>
+            <version>${knife4j.version}</version>
         </dependency>
         <!-- 阿里云oss-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.8.0</version>
+            <version>${aliyun.version}</version>
         </dependency>
-        <!-- 阿里云cos-->
+        <!-- 腾讯云-->
         <dependency>
             <groupId>com.qcloud</groupId>
             <artifactId>cos_api</artifactId>
-            <version>5.6.75</version>
+            <version>${cos_api.version}</version>
         </dependency>
         <!--fastJson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>2.0.7</version>
+            <version>${fastjson.version}</version>
+        </dependency>
+        <!--Spring security 登录保护校验-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!--jwt 解析token使用-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
         </dependency>
         <!-- mybatis plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.4.0</version>
+            <version>${mp.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -108,22 +126,22 @@
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.2.0.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.7.5</version>
+            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.houbb</groupId>
             <artifactId>sensitive-word</artifactId>
-            <version>0.2.0</version>
+            <version>${sensitive.version}</version>
         </dependency>
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
-            <version>1.20</version>
+            <version>${UserAgentUtils.version}</version>
         </dependency>
     </dependencies>
 
