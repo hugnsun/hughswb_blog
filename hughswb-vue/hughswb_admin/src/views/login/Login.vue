@@ -10,7 +10,9 @@
     >
         <canvas ref="canvasRef" style="z-index: 1; position: absolute"></canvas>
         <div class="login-card">
-            <div class="login-title">变成派大星后台管理</div>
+            <div class="login-title">
+                <p data-text="变成派大星后台管理">变成派大星后台管理</p>
+            </div>
             <!-- 登录表单 -->
             <el-form
                 status-icon
@@ -168,19 +170,60 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
+    width: 15%;
+    padding: 1% 2% 2% 2%;
+    border-radius: 15px;
+    background-color: transparent;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.8),
+        rgba(255, 255, 255, 0.6)
+    );
     transform: translate(-50%, -50%);
     z-index: 1;
 }
-.login-title {
-    color: #303133;
-    font-weight: bold;
-    font-size: 1rem;
-}
 .login-form {
     margin-top: 1.2rem;
+    padding-top: 5%;
 }
 .login-card button {
     margin-top: 1rem;
     width: 100%;
+}
+</style>
+
+<style lang = "scss" scoped>
+.login-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+        font-weight: 500;
+        color: #222;
+        position: relative;
+        &::before {
+            content: attr(data-text);
+            position: absolute;
+            color: #f56c6c;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 1px solid #222;
+            animation: move 6s linear infinite;
+            filter: drop-shadow(0 0 20px #f56c6c) drop-shadow(0 0 50px #f56c6c);
+        }
+
+        @keyframes move {
+            0%,
+            10%,
+            100% {
+                width: 0;
+            }
+            70%,
+            90% {
+                width: 100%;
+            }
+        }
+    }
 }
 </style>
