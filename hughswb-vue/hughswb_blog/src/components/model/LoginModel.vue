@@ -113,6 +113,7 @@ export default {
                 this.$toast({ type: "error", message: "密码不能为空" });
                 return false;
             }
+
             const that = this;
             // eslint-disable-next-line no-undef
             var captcha = new TencentCaptcha(

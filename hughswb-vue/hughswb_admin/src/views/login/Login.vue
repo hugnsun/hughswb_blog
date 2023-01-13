@@ -1,7 +1,19 @@
 <template>
-    <div class="login-container">
+    <div
+        ref="boxRef"
+        style="
+            boxsizing: border-box;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        "
+    >
+        <canvas
+            ref="canvasRef"
+            style="z-index: -1; position: absolute"
+        ></canvas>
         <div class="login-card">
-            <div class="login-title">管理员登录</div>
+            <div class="login-title">变成派大星后台管理</div>
             <!-- 登录表单 -->
             <el-form
                 status-icon
@@ -36,8 +48,14 @@
     </div>
 </template>
 
+
 <script>
 import { generaMenu } from "../../assets/js/menu";
+import WaterRipple from "../water/waterRipple";
+import waterBg from "../../images/water.png";
+
+let canvasWidth = 600;
+let canvasHeight = 600;
 export default {
     data: function () {
         return {
@@ -45,6 +63,8 @@ export default {
                 username: "",
                 password: "",
             },
+            waterRipple: null,
+            timer: null,
             rules: {
                 username: [
                     {
@@ -62,6 +82,37 @@ export default {
                 ],
             },
         };
+    },
+    mounted() {
+        if (this.$refs.boxRef && this.$refs.canvasRef) {
+            const { offsetWidth, offsetHeight } = this.$refs.boxRef;
+            canvasWidth = offsetWidth;
+            canvasHeight = offsetHeight;
+            this.$refs.canvasRef.width = canvasWidth;
+            this.$refs.canvasRef.height = canvasHeight;
+
+            const waterImg = new Image();
+            waterImg.src = waterBg;
+            this.waterRipple = new WaterRipple({
+                canvas: this.$refs.canvasRef,
+                background: waterImg,
+                boxRef: this.$refs.boxRef,
+            });
+            this.$refs.boxRef.style.backgroundImage = `url(${this.$refs.canvasRef.toDataURL()})`;
+            this.waterRipple.animate();
+
+            this.timer = setInterval(() => {
+                const x = Math.floor(canvasWidth * Math.random());
+                const y = Math.floor(canvasHeight * Math.random());
+                this.waterRipple.ripple(x, y);
+            }, 1000);
+
+            this.waterRipple.addMousemove();
+        }
+    },
+    beforeDestroy() {
+        clearInterval(this.timer);
+        this.waterRipple.stop();
     },
     methods: {
         login() {
@@ -122,8 +173,8 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
-    background: url(https://static.talkxj.com/config/0w3pdr.jpg) center center /
-        cover no-repeat;
+    background: url(http://oos-test-sunwenbo.oss-cn-shanghai.aliyuncs.com/config/710648cb6a77598d4e65ca2f3aea0b45.jpeg)
+        center center / cover no-repeat;
 }
 .login-card {
     position: absolute;
