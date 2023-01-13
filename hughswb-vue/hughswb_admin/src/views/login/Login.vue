@@ -42,9 +42,19 @@
                 </el-form-item>
             </el-form>
             <!-- 登录按钮 -->
-            <el-button class="shape" type="primary" @click="login"
-                >登录</el-button
-            >
+            <el-footer class="footer-container">
+                <el-button
+                    class="login-button"
+                    type="success"
+                    round
+                    @click="login"
+                    >登录账号</el-button
+                >
+                <div class="button-spacer"></div>
+                <el-button class="register-button" type="info" round
+                    >注册账号</el-button
+                >
+            </el-footer>
         </div>
     </div>
 </template>
@@ -177,16 +187,30 @@ export default {
     border-radius: 15px;
     background-color: transparent;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.8),
-        rgba(255, 255, 255, 0.6)
-    );
+    background: linear-gradient(to bottom, #67c23a, rgba(255, 255, 255, 0.6));
     transform: translate(-50%, -50%);
     z-index: 1;
 }
-.shape {
+
+.el-input /deep/ .el-input__inner {
     border-radius: 15px;
+}
+.footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-button {
+    margin-right: 8px;
+}
+
+.register-button {
+    margin-left: 8px;
+}
+
+.button-spacer {
+    width: 8px;
 }
 .login-form {
     margin-top: 1.2rem;
@@ -213,12 +237,12 @@ export default {
         &::before {
             content: attr(data-text);
             position: absolute;
-            color: #f56c6c;
+            color: #fff;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 1px solid #f56c6c;
+            border-right: 1px solid #fff;
             animation: move 6s linear infinite;
-            filter: drop-shadow(0 0 20px #f56c6c) drop-shadow(0 0 50px #f56c6c);
+            filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 50px #fff);
         }
 
         @keyframes move {

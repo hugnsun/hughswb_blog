@@ -1,0 +1,12 @@
+/* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+    font-family: "仓耳";font-weight: 400;src: url("//at.alicdn.com/wf/webfont/uU5EfRlwWPGj/jqfctzKtrpb6Q5NJhJcn1.woff2") format("woff2"),
+    url("//at.alicdn.com/wf/webfont/uU5EfRlwWPGj/ISvXD7cW7qEF--z9Qb2_n.woff") format("woff");
+    font-display: swap;
+  }
+  /* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+    font-family: "阿里妈妈";font-weight: 700;src: url("//at.alicdn.com/wf/webfont/uU5EfRlwWPGj/2L6vOW4fHZgc_tFJ-0ojO.woff2") format("woff2"),
+    url("//at.alicdn.com/wf/webfont/uU5EfRlwWPGj/hlCiiqY6hPvvX2ih0rl0b.woff") format("woff");
+    font-display: swap;
+  }
