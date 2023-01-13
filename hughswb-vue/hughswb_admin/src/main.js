@@ -25,6 +25,7 @@ import VueCalendarHeatmap from "vue-calendar-heatmap";
 import dayjs from "dayjs";
 import tagCloud from "./components/tag-cloud";
 import './views/iconfont.css'
+import './views/font.css'
 Vue.prototype.config = config;
 Vue.use(mavonEditor);
 Vue.use(tagCloud);

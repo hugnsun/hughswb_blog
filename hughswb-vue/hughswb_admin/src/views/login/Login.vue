@@ -42,7 +42,9 @@
                 </el-form-item>
             </el-form>
             <!-- 登录按钮 -->
-            <el-button type="primary" @click="login">登录</el-button>
+            <el-button class="shape" type="primary" @click="login"
+                >登录</el-button
+            >
         </div>
     </div>
 </template>
@@ -183,6 +185,9 @@ export default {
     transform: translate(-50%, -50%);
     z-index: 1;
 }
+.shape {
+    border-radius: 15px;
+}
 .login-form {
     margin-top: 1.2rem;
     padding-top: 5%;
@@ -190,6 +195,9 @@ export default {
 .login-card button {
     margin-top: 1rem;
     width: 100%;
+}
+.el-input__inner {
+    border-radius: 15px;
 }
 </style>
 
@@ -199,7 +207,7 @@ export default {
     justify-content: center;
     align-items: center;
     p {
-        font-weight: 500;
+        font-family: "阿里妈妈";
         color: #222;
         position: relative;
         &::before {
