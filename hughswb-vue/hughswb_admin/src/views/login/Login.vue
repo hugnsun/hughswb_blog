@@ -25,7 +25,7 @@
                 <el-form-item prop="username">
                     <el-input
                         v-model="loginForm.username"
-                        prefix-icon="el-icon-user-solid"
+                        prefix-icon="el-icon-aliyonghu"
                         placeholder="用户名"
                         @keyup.enter.native="login"
                     />
@@ -34,7 +34,7 @@
                 <el-form-item prop="password">
                     <el-input
                         v-model="loginForm.password"
-                        prefix-icon="iconfont el-icon-mymima"
+                        prefix-icon="el-icon-alimima"
                         show-password
                         placeholder="密码"
                         @keyup.enter.native="login"
