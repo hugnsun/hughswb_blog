@@ -208,7 +208,7 @@ export default {
             color: #f56c6c;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 1px solid #222;
+            border-right: 1px solid #f56c6c;
             animation: move 6s linear infinite;
             filter: drop-shadow(0 0 20px #f56c6c) drop-shadow(0 0 50px #f56c6c);
         }
