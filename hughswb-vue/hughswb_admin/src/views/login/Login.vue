@@ -8,10 +8,7 @@
             position: relative;
         "
     >
-        <canvas
-            ref="canvasRef"
-            style="z-index: -1; position: absolute"
-        ></canvas>
+        <canvas ref="canvasRef" style="z-index: 1; position: absolute"></canvas>
         <div class="login-card">
             <div class="login-title">变成派大星后台管理</div>
             <!-- 登录表单 -->
@@ -167,23 +164,12 @@ export default {
 </script>
 
 <style scoped>
-.login-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: url(http://oos-test-sunwenbo.oss-cn-shanghai.aliyuncs.com/config/710648cb6a77598d4e65ca2f3aea0b45.jpeg)
-        center center / cover no-repeat;
-}
 .login-card {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    background: #fff;
-    padding: 170px 60px 180px;
-    width: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 .login-title {
     color: #303133;
