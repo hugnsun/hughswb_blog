@@ -299,8 +299,8 @@ export default {
     background: linear-gradient(to bottom, #67c23a, rgba(255, 255, 255, 0.6));
     transform: translate(-50%, -50%);
     z-index: 1;
-    -webkit-animation: bounce-in-top 1.1s both;
-    animation: bounce-in-top 1.1s both;
+    -webkit-animation: bounce-in-top 1s both;
+    animation: bounce-in-top 1s both;
 }
 @-webkit-keyframes bounce-in-top {
     0% {
