@@ -103,7 +103,7 @@
                     <el-button
                         @click="sendCode"
                         style="width: 25%; border-radius: 15px; margin-top: 0"
-                        type="primary"
+                        type="success"
                         >{{ emailSendText }}</el-button
                     >
                 </el-form-item>

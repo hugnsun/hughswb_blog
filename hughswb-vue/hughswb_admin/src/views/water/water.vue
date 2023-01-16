@@ -3,40 +3,7 @@
         ref="boxRef"
         style="boxsizing: border-box; width: 100%; height: 100%; display: flex"
     >
-        <canvas ref="canvasRef">
-                    <div class="login-title">管理员登录</div>
-            <!-- 登录表单 -->
-            <el-form
-                status-icon
-                :model="loginForm"
-                :rules="rules"
-                ref="ruleForm"
-                class="login-form"
-            >
-                <!-- 用户名输入框 -->
-                <el-form-item prop="username">
-                    <el-input
-                        v-model="loginForm.username"
-                        prefix-icon="el-icon-user-solid"
-                        placeholder="用户名"
-                        @keyup.enter.native="login"
-                    />
-                </el-form-item>
-                <!-- 密码输入框 -->
-                <el-form-item prop="password">
-                    <el-input
-                        v-model="loginForm.password"
-                        prefix-icon="iconfont el-icon-mymima"
-                        show-password
-                        placeholder="密码"
-                        @keyup.enter.native="login"
-                    />
-                </el-form-item>
-            </el-form>
-            <!-- 登录按钮 -->
-            <el-button type="primary" @click="login">登录</el-button>
-        </div>
-        </canvas>
+        <canvas ref="canvasRef">您的浏览器版本过低，请更新浏览器</canvas>
     </div>
 </template>
 
