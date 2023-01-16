@@ -122,10 +122,11 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
     public void register(UserVO user) {
         // 校验账号是否合法
         if (checkUser(user)) {
-            throw new BizException("邮箱已被注册！");
+            throw new BizException("用户名已经存在！");
         }
         // 新增用户信息
         UserInfo userInfo = UserInfo.builder()
+                .userName(user.getUsername())
                 .email(user.getEmail())
                 .nickname(user.getUsername())
                 .avatar(blogInfoService.getWebsiteConfig().getUserAvatar())
@@ -152,12 +153,12 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
     public void updatePassword(UserVO user) {
         // 校验账号是否合法
         if (!checkUser(user)) {
-            throw new BizException("邮箱尚未注册！");
+            throw new BizException("用户名尚未注册！");
         }
         // 根据用户名修改密码
         userAuthDao.update(new UserAuth(), new LambdaUpdateWrapper<UserAuth>()
                 .set(UserAuth::getPassword, BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()))
-                .eq(UserAuth::getEmail, user.getEmail()));
+                .eq(UserAuth::getUsername, user.getUsername()));
     }
 
     @Override
@@ -212,10 +213,10 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
             throw new BizException("验证码错误！");
         }
         //查询用户名是否存在
-        UserAuth userAuth = userAuthDao.selectOne(new LambdaQueryWrapper<UserAuth>()
-                .select(UserAuth::getEmail)
-                .eq(UserAuth::getEmail, user.getEmail()));
-        return Objects.nonNull(userAuth);
+        Integer count = userAuthDao.selectCount(new LambdaQueryWrapper<UserAuth>()
+                .select(UserAuth::getUsername)
+                .eq(UserAuth::getUsername, user.getUsername()));
+        return count > 0;
     }
 
     /**

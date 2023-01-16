@@ -53,7 +53,7 @@
                 <el-button
                     class="register-button"
                     type="info"
-                    @click="registerUser"
+                    @click="cardType = 2"
                     round
                     >注册账号</el-button
                 >
@@ -104,7 +104,7 @@
                         @click="sendCode"
                         style="width: 25%; border-radius: 15px; margin-top: 0"
                         type="primary"
-                        >发送</el-button
+                        >{{ emailSendText }}</el-button
                     >
                 </el-form-item>
 
@@ -135,15 +135,14 @@
                     class="register-button"
                     type="success"
                     round
-                    @click="register"
+                    @click="registerUser"
                     >注册账号</el-button
                 >
-
                 <el-button
                     class="login-button"
                     type="info"
-                    @click="backLogin"
                     round
+                    @click="backLogin"
                     >返回登录</el-button
                 >
             </el-footer>
@@ -175,7 +174,9 @@ export default {
             },
             waterRipple: null,
             timer: null,
+            sendTime: 60,
             cardType: 1,
+            emailSendText: "发送",
             rules: {
                 username: [
                     {
@@ -227,13 +228,42 @@ export default {
         this.waterRipple.stop();
     },
     methods: {
-        // 返回登录
         backLogin() {
             this.cardType = 1;
         },
-        // 注册用户
-        registerUser() {
-            this.cardType = 2;
+        sendCode() {
+            //发送邮件
+            this.countDown();
+            this.axios
+                .get("/api/users/code", {
+                    params: { email: this.register.email },
+                })
+                .then(({ data }) => {
+                    if (data.flag) {
+                        this.$notify({
+                            type: "success",
+                            message: "发送成功",
+                        });
+                    } else {
+                        this.$notify.error({
+                            title: "发送验证码出现异常",
+                            message: data.message,
+                        });
+                    }
+                });
+        },
+        countDown() {
+            this.flag = true;
+            this.timer = setInterval(() => {
+                this.sendTime--;
+                this.emailSendText = this.sendTime + "s";
+                if (this.sendTime <= 0) {
+                    clearInterval(this.timer);
+                    this.emailSendText = "发送";
+                    this.sendTime = 60;
+                    this.flag = false;
+                }
+            }, 1000);
         },
         login() {
             this.$refs.ruleForm.validate((valid) => {
@@ -245,7 +275,6 @@ export default {
                         function (res) {
                             if (res.ret === 0) {
                                 //发送登录请求
-                                debugger;
                                 let param = new URLSearchParams();
                                 param.append(
                                     "username",
@@ -279,6 +308,34 @@ export default {
                     captcha.show();
                 } else {
                     return false;
+                }
+            });
+        },
+
+        registerUser() {
+            this.axios.post("/api/register", this.register).then(({ data }) => {
+                if (data.flag) {
+                    let param = new URLSearchParams();
+                    param.append("username", this.register.username);
+                    param.append("password", this.register.password);
+                    this.axios.post("/api/login", param).then(({ data }) => {
+                        this.username = "";
+                        this.password = "";
+                        this.$store.commit("login", data.data);
+                        this.$store.commit("closeModel");
+                    });
+                    this.$notify({
+                        type: "success",
+                        message:
+                            "用户：" + this.register.username + "  登录成功",
+                    });
+                    this.cardType = 1;
+                    this.$router.push({ path: "/" });
+                } else {
+                    this.$notify.error({
+                        title: "登录出现错误",
+                        message: data.message,
+                    });
                 }
             });
         },
