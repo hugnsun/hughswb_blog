@@ -9,7 +9,7 @@
         "
     >
         <canvas ref="canvasRef" style="z-index: 1; position: absolute"></canvas>
-        <div class="login-card">
+        <el-card class="login-card" v-if="cardType == 1">
             <div class="login-title">
                 <p data-text="变成派大星后台管理">变成派大星后台管理</p>
             </div>
@@ -34,7 +34,7 @@
                 <el-form-item prop="password">
                     <el-input
                         v-model="loginForm.password"
-                        prefix-icon="el-icon-alimima"
+                        prefix-icon="el-icon-alimima2"
                         show-password
                         placeholder="密码"
                         @keyup.enter.native="login"
@@ -50,12 +50,104 @@
                     @click="login"
                     >登录账号</el-button
                 >
-                <div class="button-spacer"></div>
-                <el-button class="register-button" type="info" round
+                <el-button
+                    class="register-button"
+                    type="info"
+                    @click="registerUser"
+                    round
                     >注册账号</el-button
                 >
             </el-footer>
-        </div>
+        </el-card>
+        <!-- 注册界面-->
+        <el-card class="login-card" v-if="cardType == 2">
+            <div class="login-title">
+                <p data-text="变成派大星后台管理">变成派大星后台管理</p>
+            </div>
+            <!-- 注册表单 -->
+            <el-form
+                status-icon
+                :model="register"
+                :rules="rules"
+                ref="ruleForm"
+                class="login-form"
+            >
+                <!-- 用户名输入框 -->
+                <el-form-item prop="username">
+                    <el-input
+                        v-model="register.username"
+                        prefix-icon="el-icon-aliyonghu"
+                        placeholder="用户名"
+                        @keyup.enter.native="login"
+                    />
+                </el-form-item>
+                <!-- 邮箱 -->
+                <el-form-item prop="email">
+                    <el-input
+                        v-model="register.email"
+                        prefix-icon="el-icon-alialimailaliyouxiang"
+                        placeholder="邮箱"
+                        @keyup.enter.native="email"
+                    />
+                </el-form-item>
+                <!-- 验证码 -->
+                <el-form-item prop="验证码" class="form-item-flex">
+                    <el-input
+                        style="width: 75%"
+                        v-model="register.code"
+                        prefix-icon="el-icon-aliyanzhengma"
+                        placeholder="验证码"
+                        :controls="false"
+                    />
+
+                    <el-button
+                        @click="sendCode"
+                        style="width: 25%; border-radius: 15px; margin-top: 0"
+                        type="primary"
+                        >发送</el-button
+                    >
+                </el-form-item>
+
+                <!-- 密码输入框 -->
+                <el-form-item prop="password">
+                    <el-input
+                        v-model="register.password"
+                        prefix-icon="el-icon-alimima2"
+                        show-password
+                        placeholder="密码"
+                        @keyup.enter.native="login"
+                    />
+                </el-form-item>
+                <!-- 确认密码 -->
+                <el-form-item prop="confirmPassword">
+                    <el-input
+                        v-model="register.confirmPassword"
+                        prefix-icon="el-icon-alimima"
+                        show-password
+                        placeholder="确认密码"
+                        @keyup.enter.native="login"
+                    />
+                </el-form-item>
+            </el-form>
+
+            <el-footer class="footer-container">
+                <el-button
+                    class="register-button"
+                    type="success"
+                    round
+                    @click="register"
+                    >注册账号</el-button
+                >
+
+                <el-button
+                    class="login-button"
+                    type="info"
+                    @click="backLogin"
+                    round
+                    >返回登录</el-button
+                >
+            </el-footer>
+        </el-card>
     </div>
 </template>
 
@@ -74,8 +166,16 @@ export default {
                 username: "",
                 password: "",
             },
+            register: {
+                username: "",
+                email: "",
+                code: "",
+                confirmPassword: "",
+                password: "",
+            },
             waterRipple: null,
             timer: null,
+            cardType: 1,
             rules: {
                 username: [
                     {
@@ -109,6 +209,7 @@ export default {
                 background: waterImg,
                 boxRef: this.$refs.boxRef,
             });
+
             this.$refs.boxRef.style.backgroundImage = `url(${this.$refs.canvasRef.toDataURL()})`;
             this.waterRipple.animate();
 
@@ -126,6 +227,14 @@ export default {
         this.waterRipple.stop();
     },
     methods: {
+        // 返回登录
+        backLogin() {
+            this.cardType = 1;
+        },
+        // 注册用户
+        registerUser() {
+            this.cardType = 2;
+        },
         login() {
             this.$refs.ruleForm.validate((valid) => {
                 if (valid) {
@@ -181,7 +290,7 @@ export default {
 .login-card {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 42%;
     width: 15%;
     padding: 1% 2% 2% 2%;
     border-radius: 15px;
@@ -190,6 +299,117 @@ export default {
     background: linear-gradient(to bottom, #67c23a, rgba(255, 255, 255, 0.6));
     transform: translate(-50%, -50%);
     z-index: 1;
+    -webkit-animation: bounce-in-top 1.1s both;
+    animation: bounce-in-top 1.1s both;
+}
+@-webkit-keyframes bounce-in-top {
+    0% {
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    38% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+    55% {
+        -webkit-transform: translateY(-60%);
+        transform: translateY(-60%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    72% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    81% {
+        -webkit-transform: translateY(-55%);
+        transform: translateY(-55%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    90% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    95% {
+        -webkit-transform: translateY(-52%);
+        transform: translateY(-52%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+@keyframes bounce-in-top {
+    0% {
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+        opacity: 0;
+    }
+    38% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        opacity: 1;
+    }
+    55% {
+        -webkit-transform: translateY(-60%);
+        transform: translateY(-60%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    72% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    81% {
+        -webkit-transform: translateY(-55%);
+        transform: translateY(-55%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    90% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+    95% {
+        -webkit-transform: translateY(-52%);
+        transform: translateY(-52%);
+        -webkit-animation-timing-function: ease-in;
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+}
+
+.form-item-flex {
+    display: flex;
+    align-items: center;
 }
 
 .el-input /deep/ .el-input__inner {
@@ -204,7 +424,9 @@ export default {
 .login-button {
     margin-right: 8px;
 }
-
+.el-card ::v-deep .el-card__body {
+    padding: 0;
+}
 .register-button {
     margin-left: 8px;
 }
