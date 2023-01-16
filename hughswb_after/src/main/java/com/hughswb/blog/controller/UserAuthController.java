@@ -4,6 +4,8 @@ package com.hughswb.blog.controller;
 import com.hughswb.blog.annotation.AccessLimit;
 import com.hughswb.blog.dto.UserAreaDTO;
 import com.hughswb.blog.dto.UserInfoDTO;
+import com.hughswb.blog.entity.UserAuth;
+import com.hughswb.blog.util.ResponseResult;
 import com.hughswb.blog.vo.PageResult;
 import com.hughswb.blog.dto.UserBackDTO;
 import com.hughswb.blog.service.UserAuthService;
@@ -132,5 +134,21 @@ public class UserAuthController {
         return Result.ok(userAuthService.qqLogin(qqLoginVO));
     }
 
+    /**
+     * @param userAuth 传回的用户参数
+     * @return 进行登录操作的处理
+     */
+    @PostMapping("/login")
+    public Result userLogin(@RequestBody UserAuth userAuth){
+        return userAuthService.login(userAuth);
+    }
+
+    /**
+     * @return 退出登录的处理操作
+     */
+    @GetMapping("/loginOut")
+    public  Result loginOut(){
+        return userAuthService.loginOut();
+    }
 }
 

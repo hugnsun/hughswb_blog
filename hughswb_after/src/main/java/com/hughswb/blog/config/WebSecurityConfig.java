@@ -26,90 +26,90 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
  * @author swb
  * @date 2021/07/29
  */
-@Configuration
-@EnableWebSecurity
-@AllArgsConstructor
+//@Configuration
+//@EnableWebSecurity
+//@AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private AuthenticationEntryPointImpl authenticationEntryPoint;
-
-    private AccessDeniedHandlerImpl accessDeniedHandler;
-
-    private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
-
-    private AuthenticationFailHandlerImpl authenticationFailHandler;
-
-    private LogoutSuccessHandlerImpl logoutSuccessHandler;
-
-    @Bean
-    public FilterInvocationSecurityMetadataSource securityMetadataSource() {
-        return new FilterInvocationSecurityMetadataSourceImpl();
-    }
-
-    @Bean
-    public AccessDecisionManager accessDecisionManager() {
-        return new AccessDecisionManagerImpl();
-    }
-
-    @Bean
-    public SessionRegistry sessionRegistry() {
-        return new SessionRegistryImpl();
-    }
-
-    @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher() {
-        return new HttpSessionEventPublisher();
-    }
-
-    /**
-     * 密码加密
-     *
-     * @return {@link PasswordEncoder} 加密方式
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    /**
-     * 配置权限
-     *
-     * @param http http
-     * @throws Exception 异常
-     */
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // 配置登录注销路径
-        http.formLogin()
-                .loginProcessingUrl("/login")
-                .successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailHandler)
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessHandler(logoutSuccessHandler);
-        // 配置路由权限信息
-        http.authorizeRequests()
-                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
-                    @Override
-                    public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
-                        fsi.setSecurityMetadataSource(securityMetadataSource());
-                        fsi.setAccessDecisionManager(accessDecisionManager());
-                        return fsi;
-                    }
-                })
-                .anyRequest().permitAll()
-                .and()
-                // 关闭跨站请求防护
-                .csrf().disable().exceptionHandling()
-                // 未登录处理
-                .authenticationEntryPoint(authenticationEntryPoint)
-                // 权限不足处理
-                .accessDeniedHandler(accessDeniedHandler)
-                .and()
-                .sessionManagement()
-                .maximumSessions(20)
-                .sessionRegistry(sessionRegistry());
-    }
+//
+//    private AuthenticationEntryPointImpl authenticationEntryPoint;
+//
+//    private AccessDeniedHandlerImpl accessDeniedHandler;
+//
+//    private AuthenticationSuccessHandlerImpl authenticationSuccessHandler;
+//
+//    private AuthenticationFailHandlerImpl authenticationFailHandler;
+//
+//    private LogoutSuccessHandlerImpl logoutSuccessHandler;
+//
+//    @Bean
+//    public FilterInvocationSecurityMetadataSource securityMetadataSource() {
+//        return new FilterInvocationSecurityMetadataSourceImpl();
+//    }
+//
+//    @Bean
+//    public AccessDecisionManager accessDecisionManager() {
+//        return new AccessDecisionManagerImpl();
+//    }
+//
+//    @Bean
+//    public SessionRegistry sessionRegistry() {
+//        return new SessionRegistryImpl();
+//    }
+//
+//    @Bean
+//    public HttpSessionEventPublisher httpSessionEventPublisher() {
+//        return new HttpSessionEventPublisher();
+//    }
+//
+//    /**
+//     * 密码加密
+//     *
+//     * @return {@link PasswordEncoder} 加密方式
+//     */
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    /**
+//     * 配置权限
+//     *
+//     * @param http http
+//     * @throws Exception 异常
+//     */
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        // 配置登录注销路径
+//        http.formLogin()
+//                .loginProcessingUrl("/login")
+//                .successHandler(authenticationSuccessHandler)
+//                .failureHandler(authenticationFailHandler)
+//                .and()
+//                .logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessHandler(logoutSuccessHandler);
+//        // 配置路由权限信息
+//        http.authorizeRequests()
+//                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+//                    @Override
+//                    public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
+//                        fsi.setSecurityMetadataSource(securityMetadataSource());
+//                        fsi.setAccessDecisionManager(accessDecisionManager());
+//                        return fsi;
+//                    }
+//                })
+//                .anyRequest().permitAll()
+//                .and()
+//                // 关闭跨站请求防护
+//                .csrf().disable().exceptionHandling()
+//                // 未登录处理
+//                .authenticationEntryPoint(authenticationEntryPoint)
+//                // 权限不足处理
+//                .accessDeniedHandler(accessDeniedHandler)
+//                .and()
+//                .sessionManagement()
+//                .maximumSessions(20)
+//                .sessionRegistry(sessionRegistry());
+//    }
 
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.hughswb.blog.dao.*;
 import com.hughswb.blog.dto.UserDetailDTO;
+import com.hughswb.blog.entity.LoginUser;
 import com.hughswb.blog.entity.UserAuth;
 import com.hughswb.blog.entity.UserInfo;
 import com.hughswb.blog.exception.BizException;
@@ -58,8 +59,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(userAuth)) {
             throw new BizException("用户名不存在!");
         }
+        List<String> asList = Arrays.asList("talks");
         // 封装登录信息
-        return convertUserDetail(userAuth, request);
+        return new LoginUser(userAuth,asList);
     }
 
     /**

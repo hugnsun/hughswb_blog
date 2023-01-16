@@ -2,6 +2,7 @@ package com.hughswb.blog.service;
 
 import com.hughswb.blog.dto.UserAreaDTO;
 import com.hughswb.blog.dto.UserInfoDTO;
+import com.hughswb.blog.util.ResponseResult;
 import com.hughswb.blog.vo.*;
 import com.hughswb.blog.dto.UserBackDTO;
 import com.hughswb.blog.entity.UserAuth;
@@ -78,4 +79,15 @@ public interface UserAuthService extends IService<UserAuth> {
      */
     PageResult<UserBackDTO> listUserBackDTO(ConditionVO condition);
 
+    /**
+     * @param userAuth 登录的用户‘
+     *            进行数据的登录逻辑校验
+     * @return  返回用户的信息
+     */
+    Result login(UserAuth userAuth);
+
+    /**
+     * @return 进行数据的注销操作
+     */
+    Result loginOut();
 }

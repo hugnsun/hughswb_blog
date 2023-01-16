@@ -24,7 +24,7 @@
         <hibernate.version>6.2.0.Final</hibernate.version>
         <aliyun.version>3.8.0</aliyun.version>
         <cos_api.version>5.6.75</cos_api.version>
-        <fastjson.version>2.0.7</fastjson.version>
+        <fastjson.version>1.2.33</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
         <mp.version>3.4.0</mp.version>
         <hutool.version>5.7.5</hutool.version>

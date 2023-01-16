@@ -9,6 +9,7 @@ import com.hughswb.blog.constant.CommonConst;
 import com.hughswb.blog.dao.UserInfoDao;
 import com.hughswb.blog.dao.UserRoleDao;
 import com.hughswb.blog.dto.*;
+import com.hughswb.blog.entity.LoginUser;
 import com.hughswb.blog.entity.UserInfo;
 import com.hughswb.blog.entity.UserAuth;
 import com.hughswb.blog.dao.UserAuthDao;
@@ -21,8 +22,7 @@ import com.hughswb.blog.service.RedisService;
 import com.hughswb.blog.service.UserAuthService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hughswb.blog.strategy.context.SocialLoginStrategyContext;
-import com.hughswb.blog.util.PageUtils;
-import com.hughswb.blog.util.UserUtils;
+import com.hughswb.blog.util.*;
 import com.hughswb.blog.vo.*;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Message;
@@ -30,6 +30,10 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +60,10 @@ import static com.hughswb.blog.util.CommonUtils.getRandomCode;
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> implements UserAuthService {
 
     private RedisService redisService;
+
+    private AuthenticationManager authenticationManager;
+
+    private RedisCache redisCache;
 
     private UserAuthDao userAuthDao;
 
@@ -188,6 +196,51 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         // 获取后台用户列表
         List<UserBackDTO> userBackDTOList = userAuthDao.listUsers(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
         return new PageResult<>(userBackDTOList, count);
+    }
+
+    @Override
+    public Result login(UserAuth userAuth) {
+        // 进行用户认证
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(userAuth.getUsername(),userAuth.getPassword());
+        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
+
+        // 如果认证不通过 抛出异常
+        if (Objects.isNull(authenticate)) {
+            throw new RuntimeException("验证不通过 登录失败");
+        }
+
+        // 如果认证通过 使用userId + passWord 生成Jwt
+        LoginUser principal = (LoginUser) authenticate.getPrincipal();
+        UserAuth userData = principal.getUserAuth();
+        String userId = String.valueOf(userData.getId());
+        String jwt = JwtUtil.createJWT(userId);
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("token",jwt);
+
+        // 存放到Redis
+        redisCache.setCacheObject("login"+userId,principal);
+
+        return Result.ok(hashMap,"登录成功");
+    }
+
+    /**
+     * @return 进行账号注销处理
+     */
+    @Override
+    public Result loginOut() {
+        // 从上下文中获取登录信息
+        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder
+                .getContext().getAuthentication();
+
+        // 拿去到对应的数据
+        LoginUser loginUser = (LoginUser) authenticationToken.getPrincipal();
+
+        Integer id = loginUser.getUserAuth().getId();
+
+        // 删除Redis 中的数据
+        redisCache.deleteObject("login"+id);
+        return Result.ok(200,"注销成功");
     }
 
     @Transactional(rollbackFor = Exception.class)
