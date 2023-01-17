@@ -10,8 +10,11 @@ import com.hughswb.blog.entity.UserInfo;
 import com.hughswb.blog.exception.BizException;
 import com.hughswb.blog.service.RedisService;
 import com.hughswb.blog.util.IpUtils;
+import com.hughswb.blog.util.JwtUtil;
+import com.hughswb.blog.util.RedisCache;
 import eu.bitwalker.useragentutils.UserAgent;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,6 +38,7 @@ import static com.hughswb.blog.enums.ZoneEnum.SHANGHAI;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserAuthDao userAuthDao;
@@ -44,8 +48,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private RoleDao roleDao;
 
     private RedisService redisService;
-    @Resource
+
     private HttpServletRequest request;
+
+    private RedisCache redisCache;
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -59,9 +65,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (Objects.isNull(userAuth)) {
             throw new BizException("用户名不存在!");
         }
-        List<String> asList = Arrays.asList("talks");
+
+        // 获取用户所拥有的数据权限
+        List<String> jurisdictionInfo = userAuthDao.getJurisdictionInfo(userAuth.getUserInfoId());
         // 封装登录信息
-        return new LoginUser(userAuth,asList);
+        return convertUserDetail(userAuth,request);
     }
 
     /**
@@ -84,8 +92,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String ipAddress = IpUtils.getIpAddress(request);
         String ipSource = IpUtils.getIpSource(ipAddress);
         UserAgent userAgent = IpUtils.getUserAgent(request);
+        String userId = String.valueOf(user.getUserInfoId());
+        String jwt = JwtUtil.createJWT(userId);
+
         // 封装权限集合
-        return UserDetailDTO.builder()
+        UserDetailDTO detailDTO = UserDetailDTO.builder()
                 .id(user.getId())
                 .loginType(user.getLoginType())
                 .userInfoId(userInfo.getId())
@@ -102,11 +113,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .talkLikeSet(talkLikeSet)
                 .ipAddress(ipAddress)
                 .ipSource(ipSource)
+                .token(jwt)
                 .isDisable(userInfo.getIsDisable())
                 .browser(userAgent.getBrowser().getName())
                 .os(userAgent.getOperatingSystem().getName())
                 .lastLoginTime(LocalDateTime.now(ZoneId.of(SHANGHAI.getZone())))
                 .build();
+        return detailDTO;
     }
 
 }

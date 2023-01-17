@@ -7,6 +7,7 @@ import com.hughswb.blog.entity.UserAuth;
 import com.hughswb.blog.util.BeanCopyUtils;
 import com.hughswb.blog.util.UserUtils;
 import com.hughswb.blog.vo.Result;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.hughswb.blog.constant.CommonConst.APPLICATION_JSON;
 
@@ -27,8 +29,9 @@ import static com.hughswb.blog.constant.CommonConst.APPLICATION_JSON;
  * @date 2021/07/28
  */
 @Component
+@AllArgsConstructor
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler {
-    @Autowired
+
     private UserAuthDao userAuthDao;
 
     @Override
@@ -46,13 +49,15 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
      */
     @Async
     public void updateUserInfo() {
-        UserAuth userAuth = UserAuth.builder()
-                .id(UserUtils.getLoginUser().getId())
-                .ipAddress(UserUtils.getLoginUser().getIpAddress())
-                .ipSource(UserUtils.getLoginUser().getIpSource())
-                .lastLoginTime(UserUtils.getLoginUser().getLastLoginTime())
-                .build();
-        userAuthDao.updateById(userAuth);
+        if (UserUtils.getLoginUser() != null) {
+            UserAuth userAuth = UserAuth.builder()
+                    .id(Objects.requireNonNull(UserUtils.getLoginUser()).getId())
+                    .ipAddress(UserUtils.getLoginUser().getIpAddress())
+                    .ipSource(UserUtils.getLoginUser().getIpSource())
+                    .lastLoginTime(UserUtils.getLoginUser().getLastLoginTime())
+                    .build();
+            userAuthDao.updateById(userAuth);
+        }
     }
 
 }

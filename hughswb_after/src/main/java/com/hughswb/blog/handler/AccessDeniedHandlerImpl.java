@@ -13,11 +13,10 @@ import java.io.IOException;
 
 import static com.hughswb.blog.constant.CommonConst.APPLICATION_JSON;
 
+
 /**
- * 用户权限处理
- *
- * @author swb
- * @date 2021/07/28
+ * SpringSecurity的异常处理机制 主要是进行出现异常之后的JSON 数据返回
+ * @date 2023-01-17
  */
 @Component
 public class AccessDeniedHandlerImpl implements AccessDeniedHandler {

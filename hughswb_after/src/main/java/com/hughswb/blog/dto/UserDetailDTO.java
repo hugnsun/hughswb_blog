@@ -1,7 +1,10 @@
 package com.hughswb.blog.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +24,8 @@ import static com.hughswb.blog.constant.CommonConst.FALSE;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDetailDTO implements UserDetails {
 
     /**
@@ -104,6 +109,12 @@ public class UserDetailDTO implements UserDetails {
     private String ipSource;
 
     /**
+     * 储存token信息
+     *
+     */
+    private String token;
+
+    /**
      * 是否禁用
      */
     private Integer isDisable;
@@ -125,6 +136,7 @@ public class UserDetailDTO implements UserDetails {
 
 
     @Override
+    @JSONField(serialize = false)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roleList.stream()
                 .map(SimpleGrantedAuthority::new)

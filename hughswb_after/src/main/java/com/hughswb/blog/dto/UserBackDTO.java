@@ -56,6 +56,11 @@ public class UserBackDTO {
      */
     private String ipAddress;
 
+
+    /**
+     * 登录的Token信息
+     */
+    private String token;
     /**
      * ip来源
      */

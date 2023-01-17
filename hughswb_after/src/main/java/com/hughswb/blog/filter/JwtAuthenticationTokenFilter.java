@@ -3,6 +3,8 @@ package com.hughswb.blog.filter;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.hughswb.blog.dto.UserDetailDTO;
+import com.hughswb.blog.dto.UserInfoDTO;
 import com.hughswb.blog.entity.LoginUser;
 import com.hughswb.blog.util.JwtUtil;
 import com.hughswb.blog.util.RedisCache;
@@ -56,19 +58,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
         //从redis中获取用户信息
         String redisKey = "login" + userid;
-        LoginUser loginUser = redisCache.getCacheObject(redisKey);
+        UserDetailDTO loginUser = redisCache.getCacheObject(redisKey);
 
         log.info("解析token 获取到的用户信息 {}", JSON.toJSON(loginUser));
 
         if(Objects.isNull(loginUser)){
             throw new RuntimeException("用户未登录");
         }
-        //存入SecurityContextHolder
-        //TODO 获取权限信息封装到Authentication中
+        //存入SecurityContextHolder 获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginUser,null,loginUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        //放行
+        //完成后之后进行放行
         filterChain.doFilter(request, response);
     }
 }

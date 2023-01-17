@@ -37,6 +37,7 @@ export default new Vuex.Store({
       state.roleList = user.roleList;
       state.avatar = user.avatar;
       state.nickname = user.nickname;
+      state.userName =  user.userName;
       state.intro = user.intro;
       state.webSite = user.webSite;
     },
@@ -50,6 +51,7 @@ export default new Vuex.Store({
       state.nickname = null;
       state.intro = null;
       state.webSite = null;
+      state.userName = null;
       state.userMenuList = [];
     },
     updateAvatar(state, avatar) {

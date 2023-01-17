@@ -37,4 +37,10 @@ public interface UserAuthDao extends BaseMapper<UserAuth> {
      */
     Integer countUser(@Param("condition") ConditionVO condition);
 
+    /**
+     * @param userId 用户Id
+     * @return 返回用户权限信息
+     */
+    List<String> getJurisdictionInfo(@Param("userId") Integer userId);
+
 }

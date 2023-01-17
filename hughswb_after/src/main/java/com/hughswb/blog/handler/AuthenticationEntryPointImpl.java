@@ -14,10 +14,10 @@ import java.io.IOException;
 import static com.hughswb.blog.constant.CommonConst.APPLICATION_JSON;
 
 /**
- * 用户未登录处理
+ * 认证失败处理器
  *
  * @author swb
- * @date 2021/07/28
+ * @date 2023/01/17
  */
 @Component
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {

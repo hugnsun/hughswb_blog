@@ -86,6 +86,11 @@ public class UserInfoDTO {
     private String ipAddress;
 
     /**
+     * 登录的Token信息
+     */
+    private String token;
+
+    /**
      * ip来源
      */
     private String ipSource;

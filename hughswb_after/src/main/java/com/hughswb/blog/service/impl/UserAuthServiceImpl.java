@@ -3,9 +3,7 @@ package com.hughswb.blog.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.hughswb.blog.constant.CommonConst;
 import com.hughswb.blog.dao.UserInfoDao;
 import com.hughswb.blog.dao.UserRoleDao;
 import com.hughswb.blog.dto.*;
@@ -25,10 +23,11 @@ import com.hughswb.blog.strategy.context.SocialLoginStrategyContext;
 import com.hughswb.blog.util.*;
 import com.hughswb.blog.vo.*;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,6 +56,7 @@ import static com.hughswb.blog.util.CommonUtils.getRandomCode;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> implements UserAuthService {
 
     private RedisService redisService;
@@ -97,8 +97,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
     }
 
     @Override
-    public List<UserAreaDTO> listUserAreas(ConditionVO conditionVO) {
-        List<UserAreaDTO> userAreaDTOList = new ArrayList<>();
+    public List listUserAreas(ConditionVO conditionVO) {
+        List userAreaDTOList = new ArrayList<>();
         switch (Objects.requireNonNull(getUserAreaType(conditionVO.getType()))) {
             case USER:
                 // 查询注册用户区域分布
@@ -209,19 +209,10 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         if (Objects.isNull(authenticate)) {
             throw new RuntimeException("验证不通过 登录失败");
         }
-
         // 如果认证通过 使用userId + passWord 生成Jwt
-        LoginUser principal = (LoginUser) authenticate.getPrincipal();
-        UserAuth userData = principal.getUserAuth();
-        String userId = String.valueOf(userData.getId());
-        String jwt = JwtUtil.createJWT(userId);
-        HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("token",jwt);
+        UserDetailDTO userDetailDTO = (UserDetailDTO) authenticate.getPrincipal();
 
-        // 存放到Redis
-        redisCache.setCacheObject("login"+userId,principal);
-
-        return Result.ok(hashMap,"登录成功");
+        return Result.ok(userDetailDTO,"登录成功");
     }
 
     /**
@@ -236,7 +227,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         // 拿去到对应的数据
         LoginUser loginUser = (LoginUser) authenticationToken.getPrincipal();
 
-        Integer id = loginUser.getUserAuth().getId();
+        Integer id = loginUser.getUserAuth().getUserInfoId();
 
         // 删除Redis 中的数据
         redisCache.deleteObject("login"+id);

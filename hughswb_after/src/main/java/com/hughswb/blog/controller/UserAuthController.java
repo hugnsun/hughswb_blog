@@ -138,7 +138,7 @@ public class UserAuthController {
      * @param userAuth 传回的用户参数
      * @return 进行登录操作的处理
      */
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public Result userLogin(@RequestBody UserAuth userAuth){
         return userAuthService.login(userAuth);
     }
@@ -146,7 +146,7 @@ public class UserAuthController {
     /**
      * @return 退出登录的处理操作
      */
-    @GetMapping("/loginOut")
+    @GetMapping("/api/loginOut")
     public  Result loginOut(){
         return userAuthService.loginOut();
     }

@@ -80,5 +80,15 @@
             </if>
         </where>
     </select>
-
+    <select id="getJurisdictionInfo" resultType="string">
+        select tm.permission from tb_user_role tu
+            left join tb_role_menu tr on tu.role_id = tr.role_id
+            left join tb_menu tm on tm.id = tr.menu_id
+      <where>
+          <if test="userId != null">
+               tu.user_id = #{userId}
+          </if>
+       and !isnull(tm.permission)
+      </where>
+    </select>
 </mapper>

@@ -40,7 +40,7 @@ public class Knife4jConfig {
                 .title("博客api文档")
                 .description("springboot+vue开发的博客项目")
                 .contact(new Contact("风丶宇", "https://github.com/X1192176811", "1192176811@qq.com"))
-                .termsOfServiceUrl("https://www.talkxj.com/api")
+                .termsOfServiceUrl("https://www.hughswb.com/api")
                 .version("1.0")
                 .build();
     }

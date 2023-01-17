@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * web mvc配置
+ * 进行跨域的处理操作 配置文件
  *
  * @author swb
  * @date 2021/07/29
@@ -25,11 +25,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        // 设置允许跨域的路径
         registry.addMapping("/**")
-                .allowCredentials(true)
-                .allowedHeaders("*")
+                // 设置允许跨域请求的域名
                 .allowedOriginPatterns("*")
-                .allowedMethods("*");
+                // 是否允许cookie
+                .allowCredentials(true)
+                // 设置允许的请求方式
+                .allowedMethods("GET", "POST", "DELETE", "PUT")
+                // 设置允许的header属性
+                .allowedHeaders("*")
+                // 跨域允许时间
+                .maxAge(3600);
     }
 
     @Override
