@@ -275,19 +275,16 @@ export default {
                         function (res) {
                             if (res.ret === 0) {
                                 //发送登录请求
-                                let param = new URLSearchParams();
-                                param.append(
-                                    "username",
-                                    that.loginForm.username
-                                );
-                                param.append(
-                                    "password",
-                                    that.loginForm.password
-                                );
+                                let param = {
+                                    username: that.loginForm.username,
+                                    password: that.loginForm.password,
+                                };
+
                                 that.axios
                                     .post("/api/login", param)
                                     .then(({ data }) => {
                                         if (data.flag) {
+                                            debugger;
                                             // 登录后保存用户信息
                                             that.$store.commit(
                                                 "login",
@@ -347,7 +344,7 @@ export default {
 .login-card {
     position: absolute;
     top: 50%;
-    left: 42%;
+    left: 50%;
     width: 15%;
     padding: 1% 2% 2% 2%;
     border-radius: 15px;
@@ -356,114 +353,7 @@ export default {
     background: linear-gradient(to bottom, #67c23a, rgba(255, 255, 255, 0.6));
     transform: translate(-50%, -50%);
     z-index: 1;
-    -webkit-animation: bounce-in-top 1s both;
-    animation: bounce-in-top 1s both;
 }
-@-webkit-keyframes bounce-in-top {
-    0% {
-        -webkit-transform: translateY(-100%);
-        transform: translateY(-100%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-        opacity: 0;
-    }
-    38% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-        opacity: 1;
-    }
-    55% {
-        -webkit-transform: translateY(-60%);
-        transform: translateY(-60%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-    72% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-    81% {
-        -webkit-transform: translateY(-55%);
-        transform: translateY(-55%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-    90% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-    95% {
-        -webkit-transform: translateY(-52%);
-        transform: translateY(-52%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-    100% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-}
-@keyframes bounce-in-top {
-    0% {
-        -webkit-transform: translateY(-100%);
-        transform: translateY(-100%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-        opacity: 0;
-    }
-    38% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-        opacity: 1;
-    }
-    55% {
-        -webkit-transform: translateY(-60%);
-        transform: translateY(-60%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-    72% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-    81% {
-        -webkit-transform: translateY(-55%);
-        transform: translateY(-55%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-    90% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-    95% {
-        -webkit-transform: translateY(-52%);
-        transform: translateY(-52%);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-    100% {
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-}
-
 .form-item-flex {
     display: flex;
     align-items: center;
