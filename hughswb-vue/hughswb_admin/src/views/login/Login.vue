@@ -275,11 +275,15 @@ export default {
                         function (res) {
                             if (res.ret === 0) {
                                 //发送登录请求
-                                let param = {
-                                    username: that.loginForm.username,
-                                    password: that.loginForm.password,
-                                };
-
+                                let param = new URLSearchParams();
+                                param.append(
+                                    "username",
+                                    that.loginForm.username
+                                );
+                                param.append(
+                                    "password",
+                                    that.loginForm.password
+                                );
                                 that.axios
                                     .post("/api/login", param)
                                     .then(({ data }) => {
