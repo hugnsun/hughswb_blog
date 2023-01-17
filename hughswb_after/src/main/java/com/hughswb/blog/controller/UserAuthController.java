@@ -133,22 +133,5 @@ public class UserAuthController {
     public Result<UserInfoDTO> qqLogin(@Valid @RequestBody QQLoginVO qqLoginVO) {
         return Result.ok(userAuthService.qqLogin(qqLoginVO));
     }
-
-    /**
-     * @param userAuth 传回的用户参数
-     * @return 进行登录操作的处理
-     */
-    @PostMapping("/api/login")
-    public Result userLogin(@RequestBody UserAuth userAuth){
-        return userAuthService.login(userAuth);
-    }
-
-    /**
-     * @return 退出登录的处理操作
-     */
-    @GetMapping("/api/loginOut")
-    public  Result loginOut(){
-        return userAuthService.loginOut();
-    }
 }
 

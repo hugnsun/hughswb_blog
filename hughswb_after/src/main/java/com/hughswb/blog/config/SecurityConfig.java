@@ -119,12 +119,12 @@ protected void configure(HttpSecurity http) throws Exception {
             .accessDeniedHandler(accessDeniedHandler);
 
     http.formLogin()
-            .loginProcessingUrl("/api/login")
+            .loginProcessingUrl("/login")
             .successHandler(authenticationSuccessHandler)
             // 配置认证失败处理器
             .failureHandler(authenticationFailHandler);
     http.logout()
-                .logoutUrl("/api/loginOut")
+                .logoutUrl("/loginOut")
                 // 配置注销成功处理器
                 .logoutSuccessHandler(logoutSuccessHandler);
 }

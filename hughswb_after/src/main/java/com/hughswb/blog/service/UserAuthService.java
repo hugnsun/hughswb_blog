@@ -79,15 +79,4 @@ public interface UserAuthService extends IService<UserAuth> {
      */
     PageResult<UserBackDTO> listUserBackDTO(ConditionVO condition);
 
-    /**
-     * @param userAuth 登录的用户‘
-     *            进行数据的登录逻辑校验
-     * @return  返回用户的信息
-     */
-    Result login(UserAuth userAuth);
-
-    /**
-     * @return 进行数据的注销操作
-     */
-    Result loginOut();
 }

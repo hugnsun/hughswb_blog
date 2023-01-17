@@ -119,6 +119,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .os(userAgent.getOperatingSystem().getName())
                 .lastLoginTime(LocalDateTime.now(ZoneId.of(SHANGHAI.getZone())))
                 .build();
+
+        // 存放到Redis
+        redisCache.setCacheObject("login"+userId,detailDTO);
+        boolean expire = redisCache.expire("login" + userId, 1800);
+        log.info("设置超时时间是否成功 key：{},  是否成功：{}","login"+userId,expire);
         return detailDTO;
     }
 

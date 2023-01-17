@@ -198,42 +198,6 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthDao, UserAuth> impl
         return new PageResult<>(userBackDTOList, count);
     }
 
-    @Override
-    public Result login(UserAuth userAuth) {
-        // 进行用户认证
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userAuth.getUsername(),userAuth.getPassword());
-        Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-
-        // 如果认证不通过 抛出异常
-        if (Objects.isNull(authenticate)) {
-            throw new RuntimeException("验证不通过 登录失败");
-        }
-        // 如果认证通过 使用userId + passWord 生成Jwt
-        UserDetailDTO userDetailDTO = (UserDetailDTO) authenticate.getPrincipal();
-
-        return Result.ok(userDetailDTO,"登录成功");
-    }
-
-    /**
-     * @return 进行账号注销处理
-     */
-    @Override
-    public Result loginOut() {
-        // 从上下文中获取登录信息
-        UsernamePasswordAuthenticationToken authenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder
-                .getContext().getAuthentication();
-
-        // 拿去到对应的数据
-        LoginUser loginUser = (LoginUser) authenticationToken.getPrincipal();
-
-        Integer id = loginUser.getUserAuth().getUserInfoId();
-
-        // 删除Redis 中的数据
-        redisCache.deleteObject("login"+id);
-        return Result.ok(200,"注销成功");
-    }
-
     @Transactional(rollbackFor = Exception.class)
     @Override
     public UserInfoDTO qqLogin(QQLoginVO qqLoginVO) {
