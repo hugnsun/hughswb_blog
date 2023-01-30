@@ -40,6 +40,21 @@
                         @keyup.enter.native="login"
                     />
                 </el-form-item>
+                <!-- 图形验证码 -->
+                <el-form-item prop="verifycode">
+                    <div style="display: flex">
+                        <el-input
+                            v-model="loginForm.verifycode"
+                            placeholder="请输入验证码"
+                            @keyup.enter.native="login('loginForm')"
+                        ></el-input>
+                        <span @click="refreshCode"
+                            ><s-identify
+                                :identifyCode="identifyCode"
+                            ></s-identify
+                        ></span>
+                    </div>
+                </el-form-item>
             </el-form>
             <!-- 登录按钮 -->
             <el-footer class="footer-container">
@@ -155,15 +170,32 @@
 import { generaMenu } from "../../assets/js/menu";
 import WaterRipple from "../water/waterRipple";
 import waterBg from "../../images/water.png";
-
+import SIdentify from "../../components/identify.vue";
 let canvasWidth = 600;
 let canvasHeight = 600;
 export default {
+    components: { SIdentify },
     data: function () {
+        // 验证码自定义验证规则
+        const validateVerifycode = (rule, value, callback) => {
+            const newVal = value.toLowerCase();
+            const identifyStr = this.identifyCode.toLowerCase();
+            if (newVal === "") {
+                callback(new Error("请输入验证码"));
+            } else if (newVal !== identifyStr) {
+                console.log("validateVerifycode:", value);
+                callback(new Error("验证码不正确!"));
+            } else {
+                callback();
+            }
+        };
         return {
+            identifyCodes: "3456789ABCDEFGHGKMNPQRSTUVWXY",
+            identifyCode: "",
             loginForm: {
                 username: "",
                 password: "",
+                verifycode: "",
             },
             register: {
                 username: "",
@@ -192,9 +224,17 @@ export default {
                         trigger: "blur",
                     },
                 ],
+                verifycode: [
+                    {
+                        required: true,
+                        trigger: "blur",
+                        validator: validateVerifycode,
+                    },
+                ],
             },
         };
     },
+
     mounted() {
         if (this.$refs.boxRef && this.$refs.canvasRef) {
             const { offsetWidth, offsetHeight } = this.$refs.boxRef;
@@ -222,6 +262,10 @@ export default {
 
             this.waterRipple.addMousemove();
         }
+
+        // 验证码初始化
+        this.identifyCode = "";
+        this.makeCode(this.identifyCodes, 4);
     },
     beforeDestroy() {
         clearInterval(this.timer);
@@ -266,53 +310,43 @@ export default {
             }, 1000);
         },
         login() {
-            this.$refs.ruleForm.validate((valid) => {
-                if (valid) {
-                    const that = this;
-                    // eslint-disable-next-line no-undef
-                    var captcha = new TencentCaptcha(
-                        this.config.TENCENT_CAPTCHA,
-                        function (res) {
-                            if (res.ret === 0) {
-                                //发送登录请求
-                                let param = new URLSearchParams();
-                                param.append(
-                                    "username",
-                                    that.loginForm.username
-                                );
-                                param.append(
-                                    "password",
-                                    that.loginForm.password
-                                );
-                                that.axios
-                                    .post("/api/login", param)
-                                    .then(({ data }) => {
-                                        if (data.flag) {
-                                            debugger;
-                                            // 登录后保存用户信息
-                                            that.$store.commit(
-                                                "login",
-                                                data.data
-                                            );
-                                            // 加载用户菜单
-                                            generaMenu();
-                                            that.$message.success("登录成功");
-                                            that.$router.push({ path: "/" });
-                                        } else {
-                                            that.$message.error(data.message);
-                                        }
-                                    });
-                            }
-                        }
-                    );
-                    // 显示验证码
-                    captcha.show();
+            const that = this;
+            //发送登录请求
+            let param = new URLSearchParams();
+            param.append("username", that.loginForm.username);
+            param.append("password", that.loginForm.password);
+            that.axios.post("/api/login", param).then(({ data }) => {
+                if (data.flag) {
+                    debugger;
+                    // 登录后保存用户信息
+                    that.$store.commit("login", data.data);
+                    // 加载用户菜单
+                    generaMenu();
+                    that.$message.success("登录成功");
+                    that.$router.push({ path: "/" });
                 } else {
-                    return false;
+                    that.$message.error(data.message);
                 }
             });
         },
-
+        // 生成随机数
+        randomNum(min, max) {
+            return Math.floor(Math.random() * (max - min) + min);
+        },
+        // 切换验证码
+        refreshCode() {
+            this.identifyCode = "";
+            this.makeCode(this.identifyCodes, 4);
+        },
+        // 生成四位随机验证码
+        makeCode(o, l) {
+            for (let i = 0; i < l; i++) {
+                this.identifyCode +=
+                    this.identifyCodes[
+                        this.randomNum(0, this.identifyCodes.length)
+                    ];
+            }
+        },
         registerUser() {
             this.axios.post("/api/register", this.register).then(({ data }) => {
                 if (data.flag) {
