@@ -320,6 +320,7 @@ export default {
                     debugger;
                     // 登录后保存用户信息
                     that.$store.commit("login", data.data);
+                    localStorage.setItem("token", data.data.token);
                     // 加载用户菜单
                     generaMenu();
                     that.$message.success("登录成功");

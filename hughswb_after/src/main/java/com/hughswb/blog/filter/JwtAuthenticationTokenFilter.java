@@ -40,7 +40,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         //获取token
-        String token = request.getHeader("token");
+        String token = request.getHeader("Authorization");
         log.info("获取到的Token信息 {}",token);
         if (StrUtil.isEmpty(token)) {
             //放行
@@ -63,7 +63,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         log.info("解析token 获取到的用户信息 {}", JSON.toJSON(loginUser));
 
         if(Objects.isNull(loginUser)){
-            throw new RuntimeException("用户未登录");
+            throw new RuntimeException("请登录账号");
         }
         //存入SecurityContextHolder 获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken authenticationToken =
