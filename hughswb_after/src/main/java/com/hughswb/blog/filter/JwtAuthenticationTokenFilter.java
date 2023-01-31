@@ -53,8 +53,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             Claims claims = JwtUtil.parseJWT(token);
             userid = claims.getSubject();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("token非法");
+            //放行
+            filterChain.doFilter(request, response);
+            return;
         }
         //从redis中获取用户信息
         String redisKey = "login" + userid;
@@ -63,7 +64,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         log.info("解析token 获取到的用户信息 {}", JSON.toJSON(loginUser));
 
         if(Objects.isNull(loginUser)){
-            throw new RuntimeException("请登录账号");
+            filterChain.doFilter(request, response);
         }
         //存入SecurityContextHolder 获取权限信息封装到Authentication中
         UsernamePasswordAuthenticationToken authenticationToken =

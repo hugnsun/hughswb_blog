@@ -317,7 +317,6 @@ export default {
             param.append("password", that.loginForm.password);
             that.axios.post("/api/login", param).then(({ data }) => {
                 if (data.flag) {
-                    debugger;
                     // 登录后保存用户信息
                     that.$store.commit("login", data.data);
                     localStorage.setItem("token", data.data.token);
