@@ -54,11 +54,20 @@ export default {
 .el-icon-alitubiaozhizuomoban- {
     font-size: 120px;
 }
+.el-icon-alifasantixing- {
+    font-size: 120px;
+}
+.el-icon-aliicon_kaifazheguanli {
+    font-size: 120px;
+}
 .container-style {
     padding: 8%;
 }
 .el-row /deep/ {
     padding-left: 10%;
     margin-top: 1%;
+}
+.el-col /deep/ {
+    padding-top: 2%;
 }
 </style>
