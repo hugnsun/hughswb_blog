@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { tableOption } from "./const/planDetailOption";
+import { tableOption } from "./coust/planDetailOption";
 
 export default {
     name: "plandetails",
@@ -36,6 +36,7 @@ export default {
                 pageSize: 20, // 每页显示多少条
             },
             tableLoading: false,
+            active2: false,
             tableOption: tableOption,
         };
     },
