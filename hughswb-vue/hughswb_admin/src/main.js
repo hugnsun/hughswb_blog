@@ -26,6 +26,11 @@ import dayjs from "dayjs";
 import tagCloud from "./components/tag-cloud";
 import './views/iconfont.css'
 import './views/font.css'
+import Vuesax from 'vuesax'
+import 'vuesax/dist/vuesax.css'
+import Avue from '@smallwei/avue';
+import '@smallwei/avue/lib/index.css';
+
 Vue.prototype.config = config;
 Vue.use(mavonEditor);
 Vue.use(tagCloud);
@@ -33,6 +38,8 @@ Vue.use(VueCalendarHeatmap);
 Vue.component("v-chart", ECharts);
 Vue.use(VueAxios, axios);
 Vue.use(ElementUI);
+Vue.use(Vuesax)
+Vue.use(Avue);
 Vue.config.productionTip = false;
 Vue.prototype.$moment = dayjs;
 
