@@ -7,6 +7,8 @@ export const tableOption = {
   "align": "center",
   "searchMenuSpan": 6,
   addBtn:false,
+  editBtn:false,
+  delBtn:false,
   "column": [
 	 {
       "type": "select",

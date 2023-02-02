@@ -61,13 +61,13 @@ public class PlanDetails extends Model<PlanDetails> {
      * 是否延期
      */
     @ApiModelProperty(value="是否延期")
-    private Integer delayOrNot;
+    private Boolean delayOrNot;
 
     /**
      * 是否上传笔记
      */
     @ApiModelProperty(value="是否上传笔记")
-    private Integer whetherToUploadNotes;
+    private Boolean whetherToUploadNotes;
 
     /**
      * 笔记路径

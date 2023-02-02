@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import com.hughswb.blog.entity.PlanDetails;
 import com.hughswb.blog.service.PlanDetailsService;
-import org.springframework.security.access.prepost.PreAuthorize;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,7 @@ public class PlanDetailsController {
      */
     @ApiOperation(value = "分页查询", notes = "分页查询")
     @GetMapping("/page" )
-    public R getPlanDetailsPage(Page page, PlanDetails planDetails) {
+    public R getPlanDetailsPage(Page<PlanDetails> page, PlanDetails planDetails) {
         return R.ok(planDetailsService.page(page, Wrappers.query(planDetails)));
     }
 
@@ -47,7 +46,7 @@ public class PlanDetailsController {
      */
     @ApiOperation(value = "通过id查询", notes = "通过id查询")
     @GetMapping("/{id}" )
-    public R getById(@PathVariable("id" ) Integer id) {
+    public R<PlanDetails> getById(@PathVariable("id" ) Integer id) {
         return R.ok(planDetailsService.getById(id));
     }
 
@@ -58,7 +57,7 @@ public class PlanDetailsController {
      */
     @ApiOperation(value = "新增计划明细表", notes = "新增计划明细表")
     @PostMapping
-    public R save(@RequestBody PlanDetails planDetails) {
+    public R<Boolean> save(@RequestBody PlanDetails planDetails) {
         return R.ok(planDetailsService.save(planDetails));
     }
 
@@ -69,7 +68,7 @@ public class PlanDetailsController {
      */
     @ApiOperation(value = "修改计划明细表", notes = "修改计划明细表")
     @PutMapping
-    public R updateById(@RequestBody PlanDetails planDetails) {
+    public R<Boolean> updateById(@RequestBody PlanDetails planDetails) {
         return R.ok(planDetailsService.updateById(planDetails));
     }
 
@@ -80,7 +79,7 @@ public class PlanDetailsController {
      */
     @ApiOperation(value = "通过id删除计划明细表", notes = "通过id删除计划明细表")
     @DeleteMapping("/{id}" )
-    public R removeById(@PathVariable Integer id) {
+    public R<Boolean> removeById(@PathVariable Integer id) {
         return R.ok(planDetailsService.removeById(id));
     }
 
