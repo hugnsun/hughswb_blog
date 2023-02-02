@@ -41,8 +41,16 @@
                         <template #on> 已上传 </template>
                     </vs-switch>
                 </template>
-
-                <template slot="menu"> </template>
+                <template slot="menu">
+                    <div style="display: flex">
+                        <vs-button upload color="dark" transparent icon>
+                            <i class="el-icon-alixiugai" />修改
+                        </vs-button>
+                        <vs-button upload color="danger" border icon>
+                            <i class="el-icon-alishanchu" />删除
+                        </vs-button>
+                    </div>
+                </template>
             </avue-crud>
         </basic-container>
     </div>
@@ -121,5 +129,8 @@ export default {
 }
 .el-icon-alichukong {
     padding-right: 5px;
+}
+.button {
+    display: inline-block;
 }
 </style>
